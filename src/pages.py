@@ -367,8 +367,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.markdown("<h3 style='text-align: center;'>Discord case</h3>", unsafe_allow_html=True)
     
     url ="https://www.cyfirma.com/research/technical-malware-analysis-report-python-based-rat-malware/"
+    
     st.write("""
-    For example, like in this Python RAT malware, we can use Discord to exfiltrate data. At first, I was doing this (using Discord webhook), 
+    For example, like in this [Python RAT malware](%s), we can use Discord to exfiltrate data. At first, I was doing this (using Discord webhook), 
     but I encountered a problem while testing my Keylogger **Discord BOT**. They just closed the server for non-compliance with the user charter.
     It's fair enough, but I need a server to exfiltrate the stolen data. 
     For that, and like (maybe) a lot malware during a certain time, we will use ***Telegram***.
@@ -441,7 +442,6 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
             
             st.warning("No...")
     
-    st.write("")
         
     st.markdown("<h2 style='text-align: center;'>Evasion Techniques</h2>", unsafe_allow_html=True)
     
@@ -450,11 +450,11 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     url3="https://www.hackmosphere.fr/bypass-windows-defender-antivirus-2025-part-1/"
     
     st.write("""
-        First of all, you can read further to understand the assignment with this link. Now let's see how this works.
+        First of all, you can read further to understand the assignment with this [link](%s). Now let's see how this works.
         First, it's important to understand that we are using different techniques, from XOR to Syscall and passing through obfuscation and even the Clang option on Nuitka. 
         All these techniques will help us evade AV. We cannot use just one and hope that it will work. To evade AV, 
         we need to have different approaches and to keep up with new trends.                 
-                """ % url3)
+        """ % url3)
     
 
     st.markdown("<h3 style='text-align: center;'>Syscall Function</h3>", unsafe_allow_html=True)
@@ -463,8 +463,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     url5="https://0xpat.github.io/Malware_development_part_2/"
     
+    ###REMETTRE LES LIENS
     st.write("""
-    Syscalls play a critical role in malware programming, see this link. As I mentioned earlier, antivirus software often monitors Windows API functions. 
+    Syscalls play a critical role in malware programming, see this [link](%s). As I mentioned earlier, antivirus software often monitors Windows API functions. 
     They hook into these APIs to analyze program behavior during dynamic analysis, and certain API calls can trigger detection. 
     So, to avoid these, you need to use undocumented Windows functions. The function we will make here is a technique used to avoid analysis in our program. 
     When running, before proceeding, it will check if any malware analysis software is in use on the target system. If it's true, the keylogger will stop itself 
