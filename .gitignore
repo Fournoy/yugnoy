@@ -1,18 +1,4 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.env
-.env
-*.venv
-venv/
-ENV/
-env/
-build/
-dist/
-*.egg-info/
-*.egg
+
 
 # VS Code
 .vscode/

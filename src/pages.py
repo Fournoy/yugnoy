@@ -1,7 +1,9 @@
 import streamlit as st
-from datetime import datetime, time
 #import numpy as np
 #import matplotlib.plotply as plt
+
+from datetime import datetime, time
+from pathlib import Path
 
 
 
@@ -543,10 +545,10 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     """)
         
     
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    video_av_evasion = ROOT_DIR / "video" / "video_poc_protection.mp4"
     
-    #av_evasion_poc = str(r"video\video_poc_protection.mp4")
-    
-    st.video("video\video_poc_protection.mp4", loop=True, muted=True)  
+    st.video(str(video_av_evasion), loop=True, muted=True)  
 
     st.success("Nice !")  
     
@@ -675,9 +677,10 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     **Now, i'm happy to show you the keylogger !** Tested on my colleague's computer
              """)
     
-    keylogger_in_action= str(r"video\New_proof_20s_malware.mp4")
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    video_keylogger_in_action= ROOT_DIR / "video" / "New_proof_20s_malware.mp4"
     
-    st.video(keylogger_in_action, loop=True, muted=True) 
+    st.video(str(video_keylogger_in_action), loop=True, muted=True) 
     
     st.markdown("<h2 style='text-align: center;'>Screenshot data</h2>", unsafe_allow_html=True)
 
