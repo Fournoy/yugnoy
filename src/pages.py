@@ -14,212 +14,8 @@ def page_1():
     st.info("testing...")
     
 
-
+                                            ########## Page 2 ##########
 def page_2():
-    st.title("PuzzleSQL : Package to automate your SQL injection 💉")
-    st.write("This page is the documentation page of the PuzzleSQL package available in my github")
-    st.markdown(
-        """
-        **PuzzlesSQL** is a Python package designed to simplify and speed up the automation of SQL injections (SQLi). It offers pre-built functions that users can assemble to create custom scripts. Currently, it supports time-based and error-based SQL injections, with plans to expand to other types of SQL injections in the future.
-        """
-    )
-
-    st.markdown("[Link to GitHub repository](https://github.com/Fournoy/PuzzlesSQL)")
-
-    st.subheader("Main Features")
-    st.markdown(
-        """
-        - **SQL Injection Automation**: Provides functions to automate time-based and error-based SQL injections.
-        - **Customization**: Users can assemble functions like puzzle pieces to create scripts tailored to their specific needs.
-        - **Evolving Support**: Plans to extend support to other types of SQL injections in the future. :red[Also, i will extend the package to use 
-        bypass WAF technics and out-of-band SQL injection with DNS/HTTP server.] 
-        """
-    )
-    
-    st.subheader("What else does PuzzleSQL offer ? ")
-    st.write("""Apart for its automated SQLi functionality (not like SQLmap!), PuzzleSQL use binary search. 
-            Binary search is a computer technique used to perform searches by dividing data into two parts, based on the position of the “middle”.
-            One of the two halves is eliminated, and this is why we gain time. When we study the computational complexity of the binary search
-            we can see that we have a O egal to log(2n). The linear search have a O egal to n. For high number of value, the binary search is better
-            than the linear search. Especially for Blind SQLi when we try to take a password or information.
-             """)
-    """
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        def calcul_log(n):
-            return np.log(2 * n)
-
-        st.subheader("Graphics for log(2n)")
-        n_max = 20
-        n_values = np.arange(1, n_max + 1)
-        log_values = calcul_log(n_values)
-
-        fig, ax = plt.subplots()
-        ax.plot(n_values, log_values, label="log(2n)", color="blue")
-        ax.set_xlabel("n")
-        ax.set_ylabel("log(2n)")
-        ax.set_title("Graphic of log(2n)")
-        ax.grid()
-        st.pyplot(fig)
-    with col2:
-        def calcul_linear(n):
-            return n
-
-        st.subheader("Graphics for n")
-        n_max = 20
-        n_values = np.arange(1, n_max + 1)
-        log_values = calcul_linear(n_values)
-
-        fig1, ax1 = plt.subplots()
-        ax1.plot(n_values, log_values, label="n", color="blue")
-        ax1.set_xlabel("n")
-        ax1.set_ylabel("n")
-        ax1.set_title("Graphic of n")
-        ax1.grid()
-        st.pyplot(fig1)
-    """
-     
-    st.markdown("<h2 style='text-align: center;'>Good ! Now, let's explain how to use and how work the PuzzleSQL package ! 🧑‍💻</h2>", unsafe_allow_html=True)
-    
-    st.write("""PuzzleSQL offer different function to make SQL injection. FOr exemple, you can make time based SQLi and boolean_based SQLi.
-    But what if i want to make an error SQLi, and look at the content of the web page for the process ? Unfortunately, this is not avalaible yet
-    in PuzzleSQL, but i will make this as soon as possible. """)  
-        
-    ##########################################################################
-    #Binary function explanation 
-
-    st.subheader("The binary search function : 🧮")
-    
-    st.write("""They are two sort of `binary_search_function`. The first use boolean input and can be use for every type of blind SQLi, or SQLi.
-    The second function uses HTTP code as input. Despite the difference, the main process is similar. Let's see the function quickly.""")
-    
-    code = """def binary_search_boolean(result_bool: bool, operator1: str, hight: int, low: int, binary_average: int) -> int:
-    if result_bool == True and operator1 =='<':
-        hight = binary_average - 1
-    if result_bool == True and operator1 =='>':
-        low = binary_average + 1
-    if result_bool == False and operator1 == '>':
-        hight = binary_average - 1
-    if result_bool == False and operator1 == '<':
-        low = binary_average + 1
-    return hight,low,binary_average"""
-    
-    st.code(code, language='python')
-    st.markdown("<h3 style='text-align: center;'>Overview of the function</h3>", unsafe_allow_html=True)
-    
-    st.write("""The `binary_search_boolean` function is used to refine the boundaries of a binary search based on a boolean result from an SQL injection test. 
-    This helps determine the correct numerical value by narrowing down the possible range. 
-    Here, the binary_average is not updated, of course it's belong to you to update the binary_average when you need it.
-    It will be the same thing for the second binary search function.
-    """)
-    
-    st.markdown("<h3 style='text-align: center;'>Parameters</h3>", unsafe_allow_html=True)
-    
-    st.write("""
-    - ***result_bool*** (bool): The result of the last boolean-based SQL injection condition (e.g., True if the condition was met, False otherwise).
-    - ***operator1*** (str): The comparison operator used in the SQL condition ('<' or '>').
-    - ***hight*** (int): The upper bound of the search range.
-    - ***low*** (int): The lower bound of the search range.
-    - ***binary_average*** (int): The midpoint of the current search range.
-    """)
-    
-    st.markdown("<h3 style='text-align: center;'>Function Logic</h3>", unsafe_allow_html=True)
-    
-    st.write("""
-        - If ***result_bool** is True and ***operator1*** == '<', the upper bound (***hight***) is moved below ***binary_average*** - 1.
-        - If ***result_bool*** is True and ***operator1*** == '>', the lower bound (***low***) is moved above ***binary_average*** + 1.
-        - If ***result_bool*** is False and ***operator1*** == '>', the upper bound (***hight***) is moved below ***binary_average*** - 1.
-        - If ***result_bool*** is False and ***operator1*** == '<', the lower bound (***low***) is moved above ***binary_average*** + 1.
-    """)
-    
-    st.markdown("<h3 style='text-align: center;'>Return Value</h3>", unsafe_allow_html=True)
-    
-    st.write("""The function returns the updated int values of hight, low, and binary_average.
-    they will be use later in the code (*see the EXEMPLE file*). These value are very important for the research of data.
-    For exemple in SQLi time based, we will use theses values to know which letter/number composes the password of a account.              
-    """)
-    
-##########################################################################
-# Concernant les fonctions principales du package
-
-    st.subheader("Sendings payloads functions : 📡")
-    
-    st.write("""In this section, we are going to examine a function used for testing time-based SQL injection vulnerabilities. 
-    The function `sending_payload_for_time_based_SQLi_getv` sends two HTTP requests with different payloads and measures the response time to determine whether a parameter is vulnerable based on the delay in the server's response.
-    This method is typically used in time-based SQL injections where the response time varies based on the injected condition.""")
-
-    code= """def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> bool:
-    
-    start_time = time.time()
-    r = requests.get(url, cookies=cookies1)
-    end_time = time.time()
-    result_bool = (end_time - start_time) 
-    if result_bool >= 5:
-        result_bool = True
-        print(f"This parameter work: {payload_parameter1}")
-    else:
-        result_bool = False
-        print("")    
-            
-    start_time = time.time()
-    r = requests.get(url, cookies=cookies2)
-    end_time = time.time()
-    result_control = (end_time - start_time)
-    if result_control >=5:
-        result_control = True
-        print(f"Value found with this parameter: {payload_parameter2}")
-    else:
-        result_control= False
-        print("")    
-        
-    return result_bool, result_control"""
-    
-    st.code(code, language='python')
-    
-    st.markdown("<h3 style='text-align: center;'>Overview of the Function</h3>", unsafe_allow_html=True)
-
-    st.write("""The `sending_payload_for_time_based_SQLi_getv` function is designed for use in time-based SQL injection testing. It works by sending two HTTP GET requests to a target URL, each with different payloads, and then measures the response time to determine if there is a noticeable delay indicative of a successful injection. 
-    A delay greater than a certain threshold (in this case, 5 seconds) is interpreted as a sign that the payload has triggered an action on the server, signaling a potential vulnerability.""")
-        
-    st.markdown("<h3 style='text-align: center;'>Parameters</h3>", unsafe_allow_html=True)
-
-    st.write("""
-        - ***payload_parameter1*** (str): The first parameter for the payload test.
-        - ***payload_parameter2*** (str): The second parameter used to bypass false-positive.
-        - ***url*** (str): The target URL for the SQL injection test.
-        - ***indice*** (int): An index used for the particularity of the SQL injection ([see exemple file](https://github.com/Fournoy/PuzzlesSQL/blob/main/EXEMPLE_time_based_SQLI_main.py)).
-        - ***cookies1*** (None): The first set of cookies to be included in the first HTTP request.
-        - ***cookies2*** (None): The second set of cookies to be included in the second HTTP request.
-    """)
-
-    st.markdown("<h3 style='text-align: center;'>Function Logic</h3>", unsafe_allow_html=True)
-
-    st.write("""
-        - The function sends an HTTP GET request to the target URL with the first set of cookies and measures the response time.
-        - If the response time is greater than or equal to 5 seconds, it considers this as a successful test for the first parameter and marks it as `True`.
-        - The function then repeats the process with the second set of cookies and checks the response time again.
-        - If the response time for the second parameter is greater than or equal to 5 seconds, it marks this as a success for the second parameter as well.
-        - Both tests are performed because if the value = a and the first query is &gt;a or &lt;a, the response will of course be FALSE. 
-        So, to avoid a false negative, we send another query with =a in the payload.
-    """)
-
-    st.markdown("<h3 style='text-align: center;'>Return Value</h3>", unsafe_allow_html=True)
-
-    st.write("""The function returns two boolean values:
-        - ***result_bool***: `True` if the first payload results in a response delay of 5 seconds or more, otherwise `False`.
-        - ***result_control***: `True` if the second payload results in a response delay of 5 seconds or more, otherwise `False`.
-        
-    These values are used to determine whether the parameters are vulnerable to time-based SQL injections. 
-    The response time threshold is adjustable, but it is commonly set to 5 seconds in this example. """)
-
-
-
-                                        ########## Page 2 ##########
-
-
-
-def page_3():
     
     st.markdown(
     """
@@ -801,7 +597,212 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
              
              """)
 
+
+                    ################### Page 3 ########################
+def page_3():
+    st.title("PuzzleSQL : Package to automate your SQL injection 💉")
+    st.write("This page is the documentation page of the PuzzleSQL package available in my github")
+    st.markdown(
+        """
+        **PuzzlesSQL** is a Python package designed to simplify and speed up the automation of SQL injections (SQLi). It offers pre-built functions that users can assemble to create custom scripts. Currently, it supports time-based and error-based SQL injections, with plans to expand to other types of SQL injections in the future.
+        """
+    )
+
+    st.markdown("[Link to GitHub repository](https://github.com/Fournoy/PuzzlesSQL)")
+
+    st.subheader("Main Features")
+    st.markdown(
+        """
+        - **SQL Injection Automation**: Provides functions to automate time-based and error-based SQL injections.
+        - **Customization**: Users can assemble functions like puzzle pieces to create scripts tailored to their specific needs.
+        - **Evolving Support**: Plans to extend support to other types of SQL injections in the future. :red[Also, i will extend the package to use 
+        bypass WAF technics and out-of-band SQL injection with DNS/HTTP server.] 
+        """
+    )
     
+    st.subheader("What else does PuzzleSQL offer ? ")
+    st.write("""Apart for its automated SQLi functionality (not like SQLmap!), PuzzleSQL use binary search. 
+            Binary search is a computer technique used to perform searches by dividing data into two parts, based on the position of the “middle”.
+            One of the two halves is eliminated, and this is why we gain time. When we study the computational complexity of the binary search
+            we can see that we have a O egal to log(2n). The linear search have a O egal to n. For high number of value, the binary search is better
+            than the linear search. Especially for Blind SQLi when we try to take a password or information.
+             """)
+    """
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        def calcul_log(n):
+            return np.log(2 * n)
+
+        st.subheader("Graphics for log(2n)")
+        n_max = 20
+        n_values = np.arange(1, n_max + 1)
+        log_values = calcul_log(n_values)
+
+        fig, ax = plt.subplots()
+        ax.plot(n_values, log_values, label="log(2n)", color="blue")
+        ax.set_xlabel("n")
+        ax.set_ylabel("log(2n)")
+        ax.set_title("Graphic of log(2n)")
+        ax.grid()
+        st.pyplot(fig)
+    with col2:
+        def calcul_linear(n):
+            return n
+
+        st.subheader("Graphics for n")
+        n_max = 20
+        n_values = np.arange(1, n_max + 1)
+        log_values = calcul_linear(n_values)
+
+        fig1, ax1 = plt.subplots()
+        ax1.plot(n_values, log_values, label="n", color="blue")
+        ax1.set_xlabel("n")
+        ax1.set_ylabel("n")
+        ax1.set_title("Graphic of n")
+        ax1.grid()
+        st.pyplot(fig1)
+    """
+     
+    st.markdown("<h2 style='text-align: center;'>Good ! Now, let's explain how to use and how work the PuzzleSQL package ! 🧑‍💻</h2>", unsafe_allow_html=True)
+    
+    st.write("""PuzzleSQL offer different function to make SQL injection. FOr exemple, you can make time based SQLi and boolean_based SQLi.
+    But what if i want to make an error SQLi, and look at the content of the web page for the process ? Unfortunately, this is not avalaible yet
+    in PuzzleSQL, but i will make this as soon as possible. """)  
+        
+    ##########################################################################
+    #Binary function explanation 
+
+    st.subheader("The binary search function : 🧮")
+    
+    st.write("""They are two sort of `binary_search_function`. The first use boolean input and can be use for every type of blind SQLi, or SQLi.
+    The second function uses HTTP code as input. Despite the difference, the main process is similar. Let's see the function quickly.""")
+    
+    code = """def binary_search_boolean(result_bool: bool, operator1: str, hight: int, low: int, binary_average: int) -> int:
+    if result_bool == True and operator1 =='<':
+        hight = binary_average - 1
+    if result_bool == True and operator1 =='>':
+        low = binary_average + 1
+    if result_bool == False and operator1 == '>':
+        hight = binary_average - 1
+    if result_bool == False and operator1 == '<':
+        low = binary_average + 1
+    return hight,low,binary_average"""
+    
+    st.code(code, language='python')
+    st.markdown("<h3 style='text-align: center;'>Overview of the function</h3>", unsafe_allow_html=True)
+    
+    st.write("""The `binary_search_boolean` function is used to refine the boundaries of a binary search based on a boolean result from an SQL injection test. 
+    This helps determine the correct numerical value by narrowing down the possible range. 
+    Here, the binary_average is not updated, of course it's belong to you to update the binary_average when you need it.
+    It will be the same thing for the second binary search function.
+    """)
+    
+    st.markdown("<h3 style='text-align: center;'>Parameters</h3>", unsafe_allow_html=True)
+    
+    st.write("""
+    - ***result_bool*** (bool): The result of the last boolean-based SQL injection condition (e.g., True if the condition was met, False otherwise).
+    - ***operator1*** (str): The comparison operator used in the SQL condition ('<' or '>').
+    - ***hight*** (int): The upper bound of the search range.
+    - ***low*** (int): The lower bound of the search range.
+    - ***binary_average*** (int): The midpoint of the current search range.
+    """)
+    
+    st.markdown("<h3 style='text-align: center;'>Function Logic</h3>", unsafe_allow_html=True)
+    
+    st.write("""
+        - If ***result_bool** is True and ***operator1*** == '<', the upper bound (***hight***) is moved below ***binary_average*** - 1.
+        - If ***result_bool*** is True and ***operator1*** == '>', the lower bound (***low***) is moved above ***binary_average*** + 1.
+        - If ***result_bool*** is False and ***operator1*** == '>', the upper bound (***hight***) is moved below ***binary_average*** - 1.
+        - If ***result_bool*** is False and ***operator1*** == '<', the lower bound (***low***) is moved above ***binary_average*** + 1.
+    """)
+    
+    st.markdown("<h3 style='text-align: center;'>Return Value</h3>", unsafe_allow_html=True)
+    
+    st.write("""The function returns the updated int values of hight, low, and binary_average.
+    they will be use later in the code (*see the EXEMPLE file*). These value are very important for the research of data.
+    For exemple in SQLi time based, we will use theses values to know which letter/number composes the password of a account.              
+    """)
+    
+##########################################################################
+# Concernant les fonctions principales du package
+
+    st.subheader("Sendings payloads functions : 📡")
+    
+    st.write("""In this section, we are going to examine a function used for testing time-based SQL injection vulnerabilities. 
+    The function `sending_payload_for_time_based_SQLi_getv` sends two HTTP requests with different payloads and measures the response time to determine whether a parameter is vulnerable based on the delay in the server's response.
+    This method is typically used in time-based SQL injections where the response time varies based on the injected condition.""")
+
+    code= """def sending_payload_for_time_based_SQLi_getv(payload_parameter1 : str, payload_parameter2: str,url: str, indice: int, cookies1: None, cookies2: None) -> bool:
+    
+    start_time = time.time()
+    r = requests.get(url, cookies=cookies1)
+    end_time = time.time()
+    result_bool = (end_time - start_time) 
+    if result_bool >= 5:
+        result_bool = True
+        print(f"This parameter work: {payload_parameter1}")
+    else:
+        result_bool = False
+        print("")    
+            
+    start_time = time.time()
+    r = requests.get(url, cookies=cookies2)
+    end_time = time.time()
+    result_control = (end_time - start_time)
+    if result_control >=5:
+        result_control = True
+        print(f"Value found with this parameter: {payload_parameter2}")
+    else:
+        result_control= False
+        print("")    
+        
+    return result_bool, result_control"""
+    
+    st.code(code, language='python')
+    
+    st.markdown("<h3 style='text-align: center;'>Overview of the Function</h3>", unsafe_allow_html=True)
+
+    st.write("""The `sending_payload_for_time_based_SQLi_getv` function is designed for use in time-based SQL injection testing. It works by sending two HTTP GET requests to a target URL, each with different payloads, and then measures the response time to determine if there is a noticeable delay indicative of a successful injection. 
+    A delay greater than a certain threshold (in this case, 5 seconds) is interpreted as a sign that the payload has triggered an action on the server, signaling a potential vulnerability.""")
+        
+    st.markdown("<h3 style='text-align: center;'>Parameters</h3>", unsafe_allow_html=True)
+
+    st.write("""
+        - ***payload_parameter1*** (str): The first parameter for the payload test.
+        - ***payload_parameter2*** (str): The second parameter used to bypass false-positive.
+        - ***url*** (str): The target URL for the SQL injection test.
+        - ***indice*** (int): An index used for the particularity of the SQL injection ([see exemple file](https://github.com/Fournoy/PuzzlesSQL/blob/main/EXEMPLE_time_based_SQLI_main.py)).
+        - ***cookies1*** (None): The first set of cookies to be included in the first HTTP request.
+        - ***cookies2*** (None): The second set of cookies to be included in the second HTTP request.
+    """)
+
+    st.markdown("<h3 style='text-align: center;'>Function Logic</h3>", unsafe_allow_html=True)
+
+    st.write("""
+        - The function sends an HTTP GET request to the target URL with the first set of cookies and measures the response time.
+        - If the response time is greater than or equal to 5 seconds, it considers this as a successful test for the first parameter and marks it as `True`.
+        - The function then repeats the process with the second set of cookies and checks the response time again.
+        - If the response time for the second parameter is greater than or equal to 5 seconds, it marks this as a success for the second parameter as well.
+        - Both tests are performed because if the value = a and the first query is &gt;a or &lt;a, the response will of course be FALSE. 
+        So, to avoid a false negative, we send another query with =a in the payload.
+    """)
+
+    st.markdown("<h3 style='text-align: center;'>Return Value</h3>", unsafe_allow_html=True)
+
+    st.write("""The function returns two boolean values:
+        - ***result_bool***: `True` if the first payload results in a response delay of 5 seconds or more, otherwise `False`.
+        - ***result_control***: `True` if the second payload results in a response delay of 5 seconds or more, otherwise `False`.
+        
+    These values are used to determine whether the parameters are vulnerable to time-based SQL injections. 
+    The response time threshold is adjustable, but it is commonly set to 5 seconds in this example. """)
+
+    st.warning("The project is on PAUSE...")
+    
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    gif_sleep = ROOT_DIR / "image" / "project_PuzzleSQL_in_pause.gif"
+    
+    st.image(str(gif_sleep))
 
     
     

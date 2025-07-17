@@ -5,12 +5,12 @@ import streamlit as st
 
 
 st.set_page_config(
-    page_title="Yugo",
+    page_title="My project",
     page_icon="💻"   
 )
 
 with st.sidebar:
-    selected = option_menu("Yugo", ["Main","PuzzleSQL","Malware Cre[HACK]tion I"],menu_icon="bi-bookmark-check-fill", default_index=1)
+    selected = option_menu("Yugo", ["Main","Malware Cre[HACK]tion I","PuzzleSQL"],menu_icon="bi-bookmark-check-fill", default_index=1)
     selected
 st.markdown(
     """
@@ -37,8 +37,8 @@ st.markdown(
 if selected == "Main":
     pages.page_1()
 
-elif selected == "PuzzleSQL":
+elif selected == "Malware Cre[HACK]tion I":
     pages.page_2()
 
-elif selected == "Malware Cre[HACK]tion I":
+elif selected == "PuzzleSQL":
     pages.page_3()
