@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 def page_1():
-    st.header("Welcome to my projects review")
+    st.title("Welcome to my projects review")
     st.write("""You will see lot of project and test. From basic network hack to building viruses 🦠""")
     
     st.info("Topics will be added as they become available, so... enjoy your reading! 🧑🏽‍💻")

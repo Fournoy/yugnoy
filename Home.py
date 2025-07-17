@@ -40,6 +40,5 @@ if selected == "Home":
 elif selected == "PuzzleSQL":
     pages.page_2()
 
-
 elif selected == "Malware Cre[HACK]tion I":
     pages.page_3()
