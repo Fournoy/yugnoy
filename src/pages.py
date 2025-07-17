@@ -242,19 +242,17 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.markdown("<h3 style='text-align: center;'>Let's begin this very interesting journey ! </></h3>", unsafe_allow_html=True)
     
     st.write("""
-             For the first step, we choose the language. Here the keylogger will use Python for the main functionnality.
-            Tacking screenshot, registered keylog and sending the photos (in zip) and log throught internet directly in a telegram server.
-            He will also use functionnality like XOR-decryption and will place the file in TEMP repository. Theses deXORed
-            files will containes all the functionnality. We will run the script directly with an "exec()" function in order
-            to run the keylogger directly into the code.
-            
-            Also, the keylogger will have a dll file writing in C. The main purpose here is to provide the virus with 
-            AV detection functionnalities. We will see that later.             
+             For the first step, we choose the language. Here the keylogger will use Python for the main functionality.
+            Taking screenshots, registering keylogs and sending the photos (in zip) and logs through internet directly to a telegram server.
+            It will also use functionality like XOR-decryption and will place the file in the TEMP directory. These deXORed files will contain all the functionality. 
+            We will run the script directly with an "exec()" function in order to run the keylogger directly in the code            
+            Also, the keylogger will have a dll file written in C. The main purpose here is to provide the virus with AV detection functionalities. 
+            We will see that later.             
     """)    
     
-    st.markdown("<h2 style='text-align: center;'>Functionnalites:</></h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Functionalites:</></h2>", unsafe_allow_html=True)
 
-    st.info("Here, we will see what types of functionnalites we will use for the keylogger")
+    st.info("Here, we will see what types of functionalites we will use for the keylogger")
     
     st.markdown("<h3 style='text-align: left;'>Keylogging</></h3>", unsafe_allow_html=True)
     
@@ -287,24 +285,24 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     """
     
     
-    st.warning("Here the python code for the keylogging functionnality :")
+    st.warning("Here the python code for the keylogging functionality :")
     
     st.code(keylogger_code, language="python")
     
     st.write("""As you can see, we using pynput library with keyboard class to hook the key pushed by the target.
-    I ajust the function with little modification around the output to help myself to reading more efficiantly 
-    the log file. But as you can see, i just converted three key, caracteres like '&','@' and so on, will be place 
-    with their proper pynput markup.""")
+    I adjusted the function with a few modifications to the output to help myself read the log file more efficiently 
+    the log file. But as you can see, i just converted three key, characters like '&', '@' and so on, will be placed with 
+    their proper pynput markup.""")
     
-    st.write("""The magic operate around the on_press() function. It will open a file (placed in the TEMP repository) and will 
-    append as much as key are pushed by the target. It will traduced when it can, and will remove unnecessary string like " ' ".
-    Threading function (you can't see them) are placed in order to managed more correctly the different functionnalities of the malware.
-    start, stop, pause and resume are used in the main file of the malware in order to prevent from race condition. 
+    st.write("""The magic happens around the on_press() function. It will open a file (placed in the TEMP directory) 
+    and will append as many keys as are pressed by the target. It will translate when it can, and will remove unnecessary strings like " ' ".
+    Threading functions (you can't see them) are used to manage the different functionalities of the malware more correctly.
+    start, stop, pause and resume function are used in the main file of the malware to prevent race condition. 
     """)
     
     st.info("Now, let's see the second class used by the malware")
     
-    sysinfo_code = r"""    
+    sysinfo_code = r"""  
     def os_information(self):
         os_inf_gath = platform.platform()
 
@@ -336,65 +334,63 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.write("""
               This module collects OS information and takes periodic screenshots using PIL.ImageGrab. 
               Like with the keylogger, this is purely simulated in a local lab environment. The main goal here, is to have
-              as most information as we can. We can also exflitrate files and repositorys but we i will not do that for this keylogger.
-              Like the first code, we ajust it with new functions in order to prevent from race condition (very important)
+              as much information as we can. We can also exfiltrate files and directories but I will not do that for this keylogger..
+              Like the first code, we adjust it with new functions in order to prevent race conditions (very important)
              """)
     
     st.warning("Little warning concerning these functions :")
     
     
     st.write("""
-    These function use pynput module and pynput module use Windows API. In other word, this is VERY bad.
-    Using python forced us to use function throught Windows API. Wht this is bad ?
-    **AV detecte it**. AV hook API function and will detecte  if a program run some of these functions. 
-    It's for that malware use Undocumented Function, or, **Syscall**. **Syscall** are very important if you want to evade AV.
-    But of course, using it with python is not the best idea, for that we need to use C language, but we will see that later. 
-    Let focus on python code and pynput module. We pratically shoot in our feet but it's a good challenge.
+    These functions use the pynput module, and pynput uses the Windows API. In other words, this is VERY bad.
+    Using Python forces us to use functions through the Windows API. Why is this bad?
+   **AV detects it**. AV hooks API functions and will detect if a program runs some of these functions. 
+    That's why malware uses undocumented functions, or **syscalls**. **Syscalls** are very important if you want to evade AV.
+    But of course, using them with Python is not the best idea; for that, we need to use the C language, but we will see that later. 
+    Let's focus on Python code and the pynput module. We are practically shooting ourselves in the foot, but it's a good challenge.
     """)
     
     st.markdown("<h3 style='text-align: center;'>What next ?</h3>", unsafe_allow_html=True)
 
-    st.info("""We have the main function used by the malware, now, we will talking about exfiltration.       
+    st.info("""We have the main function used by the malware, now, we will talk about exfiltration.       
         """)
     
     url = "https://www.cyfirma.com/research/lumma-stealer-tactics-impact-and-defense-strategies/"
 
     st.write("""Before talking about the C part, we need to see how to exfiltrate our stolen data.
-    For that let's see how other virus work, for exemple [Luma Stealer](%s)
-    Luma Stealer use a remote server C2 (Command & Control), for this first malware we will not do that. But the thing is 
-    we need a server to exfiltrate data, a server like a web server.
+    For that let's see how other viruses work, for exemple [Luma Stealer](%s)
+    Lumma Stealer uses a remote C2 (Command & Control) server. For this first malware, we will not do that. But the thing is 
+    we need a server to exfiltrate data, such as web server.
     """ % url)
     
     st.markdown("<h3 style='text-align: center;'>Discord case</h3>", unsafe_allow_html=True)
     
     url ="https://www.cyfirma.com/research/technical-malware-analysis-report-python-based-rat-malware/"
     st.write("""
-    For exemple, like in this [Python RAT malware](%s), we can use discord to exfiltrate data. At first place, i was doing this (using
-    discord webhook) but i met a problem while testing my Keylogger **Discord BOT**. They just close the server for non-compliance with the user charter.
-    It's fair enought, but i need a server to exfiltrate the stolen data. For that, and like (maybe) most of the malware actually,
-    we will use ***Telegram***.
+    For example, like in this Python RAT malware, we can use Discord to exfiltrate data. At first, I was doing this (using Discord webhook), 
+    but I encountered a problem while testing my Keylogger **Discord BOT**. They just closed the server for non-compliance with the user charter.
+    It's fair enough, but I need a server to exfiltrate the stolen data. 
+    For that, and like (maybe) a lot malware during a certain time, we will use ***Telegram***.
             """ % url)
 
     st.markdown("<h3 style='text-align: center;'>Telegram case</h3>", unsafe_allow_html=True)
     
     st.write("""
-        In fact, this is a good idea. It's pretty clean, pretty simple to use it and we can access to the server everywhere.
-        **BUT**, AV can maybe detected it. We not talking about Windows Defender (on it's own) but some AV and EDR (Endpoint Dection and Response)
-        can detected packet send to Telegram, because of the hight use of it by malware. So keep in mind that this malware can be used
-        only against Windows Defender. One day we will level up, but for now let's focus on our purpose.
+        In fact, this is a good idea. It's pretty clean, pretty simple to use, and we can access the server from anywhere.
+        **BUT**, AV can maybe detected it. We are not talking about Windows Defender (on its own), but some AV and EDR (Endpoint Detection and Response)
+        solutions can detect packets sent to Telegram, because of the high usage by malware.So keep in mind that this malware can be used only against Windows Defender. 
+        One day we will level up, but for now, let's focus on our purpose.
              """)
 
     st.markdown("<h2 style='text-align: center;'>Exfiltration</h2>", unsafe_allow_html=True)
     
     st.write("""
-            To exfiltrate data we need to send packet to a server. We will use Telegram bot with Telegram API in order to send
-            data. But what type of format ? Stolen datas will be file (keyboard log) and zip file (screenshots). Telegram allow us
-            to send them to a private room, so this is good. But it's important to understand that in a reel scenario, Telegram is not
-            the best choice. Having our own remote server is better. The exfiltration will perhaps not be stoped by EDR and some of AV 
-            and we have a full control on the remote server. Of course, you can use every type of server, even google drive or 
-            why not X (twitter), but in fact having control on data flux, data treatment and so on are more important,
-            and you need to not be flagged by these provided services. You can reach to some of well know malware to see that
-            they use generally they own server. 
+            To exfiltrate data, we need to send packets to a server. We will use a Telegram bot with the Telegram API to send data. 
+            But what format? Stolen data will be files (keyboard logs) and zip files (screenshots). Telegram allows us to send them to a private room, so this is good. 
+            But it's important to understand that in a real scenario, Telegram is not the best choice. Having our own remote server is better. 
+            The exfiltration will perhaps not be stopped by EDR and some AV, and we have full control over the remote server. Of course, you can use any type of server, 
+            even Google Drive or X (Twitter), but in fact, having control over data flow, data processing, and so on is more important, and you need to avoid being flagged by these services. 
+            You can look at some well-known malware to see that they generally use their own server. 
              """)
     
     
@@ -410,12 +406,11 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.code(code_exfiltration, language="python")
     
     st.write("""
-             Let's dive into the best part of macking malware (and most difficult) the **EVASION** technics. 
+             Let's dive into the best part of making malware (and the most difficult): the **EVASION** techniques. 
              """)
     
-    st.info("How we will evade Windows Defender for this keylogger ?")
+    st.info("How will we evade Windows Defender for this keylogger ?")
     
-    # Example: Three columns in Streamlit
 
     col1, col2, col3 = st.columns(3)
 
@@ -439,7 +434,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
 
     with col3:
         
-        response3  = st.button("Using steganography for the dropper and Sycalls functions")
+        response3  = st.button("Using steganography for the dropper and Syscalls functions")
         
         if response3:
             
@@ -447,17 +442,17 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     st.write("")
         
-    st.markdown("<h2 style='text-align: center;'>Evasion Technics</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Evasion Techniques</h2>", unsafe_allow_html=True)
     
-    st.write("In fact, a lot of technics can be used, but for this keylogger we will prefer this one you choose.")
+    st.write("In fact, a lot of techniques can be used, but for this keylogger we will prefer the good one.")
     
     url3="https://www.hackmosphere.fr/bypass-windows-defender-antivirus-2025-part-1/"
     
     st.write("""
-        First of all, you can reach further to understand the assignement with this [link.](%s) Now let's see how this work.
-        First it's important to understand that we using different technics, from XOR to Syscall and passing throw obfuscation and 
-        even Clang option on nuitka, all these technics will help us to evade AV. We cannot use just one and hope that
-        it will work. To evade AV, we need to have different approch and to play with new trends.                 
+        First of all, you can read further to understand the assignment with this link. Now let's see how this works.
+        First, it's important to understand that we are using different techniques, from XOR to Syscall and passing through obfuscation and even the Clang option on Nuitka. 
+        All these techniques will help us evade AV. We cannot use just one and hope that it will work. To evade AV, 
+        we need to have different approaches and to keep up with new trends.                 
                 """ % url3)
     
 
@@ -468,22 +463,23 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     url5="https://0xpat.github.io/Malware_development_part_2/"
     
     st.write("""
-    Syscalls play a critical role in malware programming, see this [link](%s). As I mentioned earlier, antivirus software often monitors Windows API functions. 
-    They hook into these APIs to analyze program behavior during dynamic analysis, and certain API calls can trigger detection. So,
-    to avoid theses, you need to use undocumented windows functions. The function we will make here, is a technics used to avoid analysis
-    in our program. When running, before getting on, it will see if any malware analysis software is in use in the target system. If it's true,
-    the keylogger will stop himself and will not run, in order to avoid analysis. I choose this only technics, using Syscall (undocumented windows function)
-    but you have a lot of these.
+    Syscalls play a critical role in malware programming, see this link. As I mentioned earlier, antivirus software often monitors Windows API functions. 
+    They hook into these APIs to analyze program behavior during dynamic analysis, and certain API calls can trigger detection. 
+    So, to avoid these, you need to use undocumented Windows functions. The function we will make here is a technique used to avoid analysis in our program. 
+    When running, before proceeding, it will check if any malware analysis software is in use on the target system. If it's true, the keylogger will stop itself 
+    and will not run, in order to avoid analysis. I chose this technique, using Syscall (undocumented Windows function), but there are many others.
              """ % url4)
     
     st.write("""
-    [Here](%s) you have exemple of avoiding malware analysis, outside and inside à sandbox. The best technics shown in the paper is to detected
-    physical compenent inside the system you running on. For exemple, a sandbox using by AV will have two CPU. So, if the code find less than two running CPU,
-    it will stop his execution. For our project we will choose something different. The malware will first examine all the running processes,
-    will compare the programm with a black-list. In case of true-case, the execution will stop immediatly. But to do this, we will use C language.
-    To make it, we can use Windows API and play with these function but the risk is the AV will detect it. We already using WIN API for the keylogging
-    we need to do different now, in addition, this is one of the first execution so we need to be discret. Let's use Syscall !
-             """% url5) 
+    [Here](%s) you have examples of avoiding malware analysis, outside and inside a sandbox. 
+    The best technique shown in the paper is to detect physical components inside the system you are running on. 
+    For example, a sandbox used by AV will have two CPUs. So, if the code finds less than two running CPUs, it will stop its execution. 
+    For our project, we will choose something different. The malware will first examine all the running processes and 
+    compare the program names with a blacklist. In case of a match, the execution will stop immediately. 
+    But to do this, we will use the C language. We could use Windows API and play with these functions, 
+    but the risk is that AV will detect it. We are already using WIN API for the keylogging, so we need to do something different now. 
+    In addition, this is one of the first executions, so we need to be discreet. Let's use Syscall!             
+    """% url5) 
     
     
     syscall_evasion_code =r"""
@@ -538,12 +534,11 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     
     st.write("""
-    The code was pretty hard to use, thankfully i was help with AI to make it correctly. They are also tools like SysWhispper2 giving pre-built
-    Syscall. You will find documentation about Sycall in the complentary source part. Syscall are complicate to use, it was the hardest part of the 
-    malware. It took me several time to obtain a full functionnal code to make it right. Like you can see, it will compare with the black-list
-    manually incorporated in the main code. Let's see how it look like when execute it.
-             
-             """)
+    TThe code was pretty hard to use; thankfully, I was helped by AI to make it correctly. 
+    There are also tools like SysWhisper2 that provide pre-built Syscalls. You will find documentation about Syscall in the complementary sources section. 
+    Syscalls are complicated to use; it was the hardest part of the malware. It took me several attempts to obtain fully functional code. 
+    As you can see, it will compare with the blacklist manually incorporated in the main code. Let's see how it looks when executed.
+    """)
         
     
     
@@ -557,9 +552,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.markdown("<h3 style='text-align: center;'>Obfuscations Methods</h3>", unsafe_allow_html=True)
     
     st.write("""
-    Obfuscation is the part changing everything when i created the keylogger. In first place, i used Pyinstaller to make an exe of my python code.
-    And windows trigger it, sometimes don't, but for a short period of time (few hours) before to get stop when execute it. So i choose another tools, 
-    **Nuitka**. Using it with default parameter was not the best option at first place. With basic compilation using CL compiler and with only obfuscation in the python code,
+    Obfuscation is the part changed everything when i created the keylogger. In first , i used Pyinstaller to make an exe of my python code.
+    And windows triggered it, sometimes not, but for a short period of time (few hours) before it got stopped when executed. So i chose another tool, 
+    **Nuitka**. Using it with default parameters was not the best option at first place. With basic compilation using CL compiler and with only obfuscation in the python code,
     the executable triggered the AV each time i compile it, so i can't even see the file being created in the directory !
              """)
     
@@ -568,9 +563,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.image(image_poc_1, caption="Traduction and Compilation with Nuitka using CL compilator")
     
     st.write("""
-    As you can see, using cl compilator, even if we use code obfuscation in the python code, will not work. But why ?
+    As you can see, using cl compiler, even if we use code obfuscation in the python code, will not work. But why ?
     - First : Using only python code obfuscation is not enought. For the keylogger, i inject junk code, i change the variable etc... to make it 
-    the most incomprehensible possible. Here an exemple of how it look like :             
+    as incomprehensible as possible. Here is an exemple of how it looks :             
     """)
     
     
@@ -607,9 +602,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     url6="https://www.hackmosphere.fr/bypass-windows-defender-antivirus-2025-part-2/"
     
     st.write("""
-    And i even not change the variable. In fact, i only use the junk code. The main thing that change everything it using [XOR encryption](%s).
-    To make it right, we will use a dropper. The dropper will be the code that execute the main code of the malware. It will search for files and
-    execute it directly into the code (like i explain before). It will be the executable file, the other will stay XORed file. 
+    But i even not change the variable. In fact, i only use the junk code. The main thing that change everything it using [XOR encryption](%s).
+    To make it right, we will use a dropper. The dropper will be the code that executes the main code of the malware. It will search for files and
+    execute them directly into the code (like i explain before). It will be the executable file, the others will remain XORed file. 
              """ % url6)
     
     
@@ -617,21 +612,21 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
 
     url_forum="https://github.com/Nuitka/Nuitka/issues/2163"
     st.write("""
-    The obfuscation problem steal remain because of the compilation using nuitka and cl (windows compilator). For that, we will use an LLVM based
-    compilator. It will use the front-end of it and this will be a game changer, this is *--clang* option. 
+    The obfuscation problem still remains because of the compilation using nuitka and CL (windows compilator). For that, we will use an LLVM-based
+    compilator. It will use the front-end of it and this will be a game changer, this is *--clang* option in Nuitka. 
     Here we're going deep in the PE format file on windows, so take a look in sources complentary to go further.
-    When using cl compilator with Nuitka, Windows Defender always detect it, even before stop to finish the compilation, a reel blocage.
-    I got this message : Program:Win32/Wacapew.C!ml
-    Searching on forum, article etc... I found that sometimes, even with legitim software, windows can be triggered. Like this [one](%s).
+    *When using cl compilator with Nuitka, Windows Defender always detect it, even before stop to finish the compilation, a reel blocage.*
+    First, with teh default parameter, when compilation working, AV flagged teh dropper with this message: Program:Win32/Wacapew.C!ml
+    Searching on forum, article etc... I found that sometimes, even with legitimate software, windows can be trigged. Like this [one](%s).
     """ % url_forum)
     
     url_forum_2="https://github.com/actions/runner-images/issues/9403"
 
-    st.write("""Like the guy in the forum, i was using nuitka with default compilator (cl.exe), and i have a clue. Microsoft toolset when compilating create
-    a Rich header on the PE file. This rich header, in addition with other static analysis technics, is used to make corresponding with malware.
-    As an exemple you can see [someone](%s) using clang-cl in Visual Studio, so with microsoft toolset, so with Rich Header, and it still be triggered by
-    the windows defender. So i go deeper in the rich header and i found that it serve to know information in the PE format, like the technologies (import
-    resources, language used) in it, so Rich header can be used as a signature or fingerprint.
+    st.write("""Like the guy in the forum, i was using nuitka with default compilator (cl.exe), and i had a clue. Microsoft toolset when compilating creates
+    a Rich header on the PE file. This rich header, in addition with other static analysis techniques, is used to match with malware.
+    As an exemple you can see [someone](%s) using clang-cl in Visual Studio, so with microsoft toolset, so with Rich Header in the executable, and it still be triggered by
+    the windows defender. So i go deeper into the rich header and i found that it serve to know information in the PE format, like the technologies (import
+    resources, language used) in it, that how Rich header can be used as a signature or fingerprint, in addition with fuzzyhash and fuzzy imphash for exemple.
     """ % url_forum_2)
     
     st.write("""
@@ -640,43 +635,42 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
              """)
     st.image("image\pe_bear.jpg", caption="The Rich header hash is not available, because the ReaderHash doesn't exist")
     st.write("""
-    Without the Rich Header, Windows Defender lost a identificator fragment. At this point, i didn't found information about why i can bypass 
-    windows defenders without the Rich Header, maybe this PE header fragment have no importance in static analysis (perform by Windows Defender),
-    but it would be strange. Obfuscation in the code, and the use of LLVM front-ed transform completly the code and will maybe 
-    play as a obfuscation, that's why Windows Defender will not be trigger during the compilation (with junk code in it of course).
-    At this stage, it's more  a deduction than a reality, so take it with a pinch of salt. 
+    Without the Rich Header, Windows Defender loses an identifier fragment. At this point, i didn't find information about why i can bypass 
+    Windows Defender without the Rich Header, maybe this PE header fragment has no importance in static analysis (performed by Windows Defender),
+    but it would be strange. Obfuscation in the code, and the use of LLVM front-ed transform completly the code and may act 
+    as  obfuscation, which is why Windows Defender is not be triggered during the compilation (with junk code in it, of course).
+    At this stage, it's more  a deduction than a certainty, so take it with a pinch of salt. 
              """)
     
 
     st.markdown("<h3 style='text-align: center;'>Dynamic problem</h3>", unsafe_allow_html=True)
     
-    st.image("image\Capture d'écran 2025-07-16 125957.png", caption="Windows Defender dectect dynamically the malware for the first time")
+    st.image("image\Capture d'écran 2025-07-16 125957.png", caption="Windows Defender dectects dynamically the malware for the first time")
     st.image("image\Capture d'écran 2.png", caption="It's the exact same dropper but with a different security message...")
     
     st.write("""
-    In first, even before using clang, the malware was a one-file type. But i rapidly see  that it would be always triggered because of the
-    obvious behavior of the malware. So i needed to change the functionment. For that i dislocate the malware in five files. Two for the main 
-    function (keylogging and telegram sending) and two other for the protection function again'st analysis and for the main file (the orchestrer).
-    The dropper is the fifth file, the only executable function, the other are just XOR encrypt files. The dropper will 
-    all-in-one, deXORred files and run it "inside himself", in other world, run into the execution with an exec() (python) function. 
-    With that, we can bypass static analysis AND dynamic analysis (in a certain way). But we will not play the main code directly, we need to be smooth.
+    In first, even before using clang, the malware was a one-file type. But i quickly saw  that it would always be triggered because of the
+    obvious behavior of the malware. So i needed to change the functioning. For that i split the malware into five files: two for the main 
+    functions (keylogging and telegram sending) and two other for the protection function against analysis and for the main file (the orchestrator), the dropepr.
+    The dropper is the fifth file, the only executable file, the other are just XOR encrypt files. The dropper will 
+    deXOR files and run them "inside itself", in other words, run them during execution with an exec() (Python) function. 
+    With that, we can bypass static analysis AND dynamic analysis (in a certain way). 
              """)
     
     st.write("""
-    At first place, the malware work in my lab. I was happy and very excited to right this report. But, when i testing it in a other computer, 
-    windows defender triggered it directly because of DYNAMIC analysis (again...). I was lost, how can i make this virus (using **API Windows**) the most
-    descrete possible. I start to reach some technics, maybe using Syscall for all the function using Windows API, but i was to way for that.
-    So i start to play with the behavior of the malware. I added a simple *time.sleep(20)* in the dropper to see if it will work, i've seen that
-    one day in a paper. 
-    And miraculously, windows defender wasn't able to detect it, even after few days. So we can confirm that statically, the keylogger bypass windows defender.
-    And now, with the waiting time, it can bypass dynamic analysis perform by windows defender.
+    At first, the malware worked in my lab. I was happy and very excited to right this report. But, when i tested it on another computer, 
+    Windows Defender triggered it directly because of DYNAMIC analysis (again...). I was lost, how can i make this virus (using **Windows API**) as
+    descrete as possible ?? I started to look some techniques, maybe using Syscall for all the functions using Windows API, but i was far from that.
+    So i started to play with the behavior of the malware. I added a simple *time.sleep(20)* in the dropper to see if it would work.
+    And miraculously, Windows Defender wasn't able to detect it, even after few days. So we can confirm that statically, the keylogger bypasses Windows Defender.
+    And now, with the waiting time, it can bypass dynamic analysis performed by Windows Defender.
     
-    It's legitimate to know which configuration i made with Windows Defender, in fact everything was on even the protection against ransomware
-    but with the default parameter (of course). So running from the desktop will trigger nothing (not the same story into the documents repository, 
-    AV will detect that a executable play with files and repository, but will not flag like a malware).
+    It's legitimate to know which configuration i used with Windows Defender, in fact everything was on, even the protection against ransomware
+    but with the default parameters (of course). So running from the desktop will trigger nothing (not the same story into the documents directory, 
+    AV will detect that an executable is playing with files and directory, but will not flag it as malware).
     The only disable parameter is the smart app control (i wasn't able to activate it). 
     
-    **Now, i'm happy to show you the keylogger !** test on my computer collegue.
+    **Now, i'm happy to show you the keylogger !** Tested on my colleague's computer
              """)
     
     keylogger_in_action=r"video\New_proof_20s_malware.mp4"
@@ -685,7 +679,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     st.markdown("<h2 style='text-align: center;'>Screenshot data</h2>", unsafe_allow_html=True)
 
-    st.write("After 15min, the malware send to my telegram server the keylog and the screenshot in a zip file :")
+    st.write("After 15min, the malware send to my telegram server the keylog and the screenshots in a zip file :")
     
     col1, col2 = st.columns(2)
 
@@ -715,8 +709,8 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
 
     
     
-    st.write("""It's horrible to read, i was to lazy to make a code for convert it into a readable text, 
-    so with LLM and manually, i change the original file and i get this. Using LLM can be intersting for files with lot of data.""")
+    st.write("""It's horrible to read, i was to lazy to write a code to convert it into a readable text, 
+    so with LLM and manually, i changed the original file and got this. Using LLM can be intersting for files with a lot of data.""")
     
     proff_keylog_stealh="""OS INFORMATION -> Windows-11-10.0.26100-SP0
     Jour : 2025-07-10
@@ -731,7 +725,7 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     """
     st.code(proff_keylog_stealh)
     
-    st.write("As you can see, we can elaborate an understanding of what the target doing with screenshot AND keylog.")
+    st.write("As you can see, we can elaborate an understanding of what the target doing with screenshot AND keylogs.")
      
 
     
@@ -758,11 +752,11 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     st.markdown("<h3 style='text-align: center;'>Complementary Sources</h3>", unsafe_allow_html=True)
     st.write(f""" 
              
-    *General Technics for malware writing*
+    *General Techniques for malware writing*
     - {source3}
     - {source7}
              
-    *Evasion Technics using hardware analysis* : 
+    *Evasion Techniques using hardware analysis* : 
     - {source1}        
     - {source2}
     - {source6}
