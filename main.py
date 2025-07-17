@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 with st.sidebar:
-    selected = option_menu("Yugo", ["Main","Malware Cre[HACK]tion I","PuzzleSQL"],menu_icon="bi-bookmark-check-fill", default_index=1)
+    selected = option_menu("Yugo", ["Main","Malware Cre[HACK]tion I","PuzzleSQL"],menu_icon="bi-bookmark-check-fill", default_index=0)
     selected
 st.markdown(
     """
