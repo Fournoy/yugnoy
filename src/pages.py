@@ -544,7 +544,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
         
     
     
-    av_evasion_poc = r"video\video_poc_protection.mp4"
+    av_evasion_poc = str(r"video\video_poc_protection.mp4")
     
     st.video(av_evasion_poc, loop=True, muted=True)  
 
@@ -675,9 +675,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     **Now, i'm happy to show you the keylogger !** Tested on my colleague's computer
              """)
     
-    keylogger_in_action=r"video\New_proof_20s_malware.mp4"
+    keylogger_in_action= str(r"video\New_proof_20s_malware.mp4")
     
-    st.video(keylogger_in_action, format="video/mp4", start_time=0, subtitles=None, loop=True, autoplay=False, muted=True) 
+    st.video(keylogger_in_action, loop=True, muted=True) 
     
     st.markdown("<h2 style='text-align: center;'>Screenshot data</h2>", unsafe_allow_html=True)
 
