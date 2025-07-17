@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import datetime, time
-import numpy as np
+#import numpy as np
 #import matplotlib.plotply as plt
 
 
@@ -17,7 +17,7 @@ def page_1():
 
     st.markdown("[Link to GitHub repository](https://github.com/Fournoy/PuzzlesSQL)")
 
-    st.header("Main Features")
+    st.subheader("Main Features")
     st.markdown(
         """
         - **SQL Injection Automation**: Provides functions to automate time-based and error-based SQL injections.
