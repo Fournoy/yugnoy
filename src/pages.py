@@ -7,11 +7,82 @@ from pathlib import Path
 
 
 def page_1():
-    st.title("Welcome to my projects review")
-    st.write("""You will see lot of project and test. From basic network hack to building viruses 🦠""")
-    
-    st.info("Topics will be added as they become available, so... enjoy your reading! 🧑🏽‍💻")
-    st.info("testing...")
+    # ---------- STYLE CSS ----------
+    st.markdown("""
+        <style>
+            .big-title {
+                font-size: 3em;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 0.2em;
+            }
+
+            .sub-title {
+                font-size: 1.3em;
+                font-weight: 300;
+                text-align: center;
+                margin-bottom: 2em;
+                color: #cccccc;
+            }
+
+            .info-block {
+                background-color: #111111;
+                padding: 1.5em;
+                border-radius: 0.8em;
+                margin-bottom: 1.5em;
+                border-left: 5px solid #5D001E;
+            }
+
+            .info-block h3 {
+                margin-top: 0;
+                color: #ffffff;
+            }
+
+            .info-block p {
+                color: #bbbbbb;
+                margin-bottom: 0;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="big-title">Welcome to my projects review</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">From system exploitation to malware development</div>', unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown('<div class="info-block">', unsafe_allow_html=True)
+        st.markdown("### 🔐 Exploit Lab ")
+        st.markdown("""
+            - Soon...
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col2:
+        st.markdown('<div class="info-block">', unsafe_allow_html=True)
+        st.markdown("### 💣 Malware Lab")
+        st.markdown("""
+            - Keyloggers against Windows Defender (Python & C)
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+    with col3:
+        st.markdown('<div class="info-block">', unsafe_allow_html=True)
+        st.markdown("### 🧠 Tool Project")
+        st.markdown("""
+            - PuzzleSQL : Python package for custom automated SQL injection (In pause...)
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
+    st.markdown("""---""")
+    st.markdown(
+        "<p style='text-align:center; font-size:0.9em; color: #777;'>"
+        "More projects and write-ups will be added ;)"
+        "</p>",
+        unsafe_allow_html=True
+    )
+
     
 
                                             ########## Page 2 ##########
@@ -26,6 +97,8 @@ def page_2():
     """,
     unsafe_allow_html=True
 )
+
+    st.markdown("<br> <br>", unsafe_allow_html=True)
     
     st.write("""
 - ***Language*** : While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and readability in a research setting.
