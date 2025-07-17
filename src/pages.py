@@ -7,7 +7,6 @@ from pathlib import Path
 
 
 def page_1():
-    # ---------- STYLE CSS ----------
     st.markdown("""
         <style>
             .big-title {
