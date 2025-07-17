@@ -562,9 +562,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     the executable triggered the AV each time i compile it, so i can't even see the file being created in the directory !
              """)
     
-    image_poc_1="image\cl_bad_compiler.jpg"
-    
-    st.image(image_poc_1, caption="Traduction and Compilation with Nuitka using CL compilator")
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    image_poc_1 = ROOT_DIR / "image" / "cl_bad_compiler.jpg"
+    st.image(str(image_poc_1), caption="Traduction and Compilation with Nuitka using CL compilator")
     
     st.write("""
     As you can see, using cl compiler, even if we use code obfuscation in the python code, will not work. But why ?
@@ -637,7 +637,12 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     But with nuitka and the *--clang* option, i found that the Rich header doesn't exist at all. With PE-Bear i analysed the dropper
     (only executable file of the malware) and the Rich Header is unvailable, because of the use of clang compilator.        
              """)
-    st.image("image\pe_bear.jpg", caption="The Rich header hash is not available, because the ReaderHash doesn't exist")
+    
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    pe_bear = ROOT_DIR / "image" / "pe_bear.jpg"
+    st.image(str(pe_bear), caption="The Rich header hash is not available, because the ReaderHash doesn't exist")
+    
+    
     st.write("""
     Without the Rich Header, Windows Defender loses an identifier fragment. At this point, i didn't find information about why i can bypass 
     Windows Defender without the Rich Header, maybe this PE header fragment has no importance in static analysis (performed by Windows Defender),
@@ -649,8 +654,15 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
 
     st.markdown("<h3 style='text-align: center;'>Dynamic problem</h3>", unsafe_allow_html=True)
     
-    st.image("image\Capture d'écran 2025-07-16 125957.png", caption="Windows Defender dectects dynamically the malware for the first time")
-    st.image("image\Capture d'écran 2.png", caption="It's the exact same dropper but with a different security message...")
+    
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    screenshot3 = ROOT_DIR / "image" / "Capture d'écran 2025-07-16 125957.png"
+    st.image(str(screenshot3), caption="Windows Defender dectects dynamically the malware for the first time")
+
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    screenshot4 = ROOT_DIR / "image" / "Capture d'écran 2.png" 
+    
+    st.image(screenshot4, caption="It's the exact same dropper but with a different security message...")
     
     st.write("""
     In first, even before using clang, the malware was a one-file type. But i quickly saw  that it would always be triggered because of the
@@ -689,12 +701,14 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     col1, col2 = st.columns(2)
 
     with col1:
-        
-        st.image("image\screenshot1.png", caption="Screenshot during internet research")
+        ROOT_DIR = Path(__file__).resolve().parents[1]  
+        screenshot1 = ROOT_DIR / "image" / "screenshot1.png"
+        st.image(str(screenshot1), caption="Screenshot during internet research")
 
     with col2:
-        
-        st.image("image\screen_certi.png", caption="Another screenshot")
+        ROOT_DIR = Path(__file__).resolve().parents[1]  
+        screen_certi = ROOT_DIR / "image" / "screen_certi.png"
+        st.image(str(screen_certi), caption="Another screenshot")
         
     
     st.markdown("<h2 style='text-align: center;'>Keylog data</h2>", unsafe_allow_html=True)
