@@ -34,7 +34,7 @@ st.markdown(
 
 
 
-if selected == "Home":
+if selected == "Main":
     pages.page_1()
 
 elif selected == "PuzzleSQL":
