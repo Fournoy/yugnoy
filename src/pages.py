@@ -1,7 +1,7 @@
 import streamlit as st
 from datetime import datetime, time
 import numpy as np
-import matplotlib.plotply as plt
+#import matplotlib.plotply as plt
 
 
 
@@ -34,7 +34,7 @@ def page_1():
             we can see that we have a O egal to log(2n). The linear search have a O egal to n. For high number of value, the binary search is better
             than the linear search. Especially for Blind SQLi when we try to take a password or information.
              """)
-    
+    """
     col1, col2 = st.columns(2)
     
     with col1:
@@ -69,7 +69,7 @@ def page_1():
         ax1.set_title("Graphic of n")
         ax1.grid()
         st.pyplot(fig1)
-    
+    """
      
     st.markdown("<h2 style='text-align: center;'>Good ! Now, let's explain how to use and how work the PuzzleSQL package ! 🧑‍💻</h2>", unsafe_allow_html=True)
     
