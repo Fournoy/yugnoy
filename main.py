@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 with st.sidebar:
-    selected = option_menu("Yugo", ["Main","PuzzleSQL","Malware Cre[HACK]tion I"],menu_icon="bi-bookmark-check-fill", default_index=1)
+    selected = option_menu("Yugo", ["Home","PuzzleSQL","Malware Cre[HACK]tion I"],menu_icon="bi-bookmark-check-fill", default_index=1)
     selected
 st.markdown(
     """
@@ -34,7 +34,7 @@ st.markdown(
 
 
 
-if selected == "Main":
+if selected == "Home":
     st.header("Welcome to my projects review")
     st.write("""You will see lot of project and test. From basic network hack to building viruses 🦠""")
     
