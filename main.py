@@ -35,16 +35,11 @@ st.markdown(
 
 
 if selected == "Home":
-    st.header("Welcome to my projects review")
-    st.write("""You will see lot of project and test. From basic network hack to building viruses 🦠""")
-    
-    st.info("Topics will be added as they become available, so... enjoy your reading! 🧑🏽‍💻")
-    st.info("testing...")
-
+    pages.page_1()
 
 elif selected == "PuzzleSQL":
-    pages.page_1()
+    pages.page_2()
 
 
 elif selected == "Malware Cre[HACK]tion I":
-    pages.page_2()
+    pages.page_3()

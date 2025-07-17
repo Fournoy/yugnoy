@@ -6,9 +6,16 @@ from datetime import datetime, time
 from pathlib import Path
 
 
-
-
 def page_1():
+    st.header("Welcome to my projects review")
+    st.write("""You will see lot of project and test. From basic network hack to building viruses 🦠""")
+    
+    st.info("Topics will be added as they become available, so... enjoy your reading! 🧑🏽‍💻")
+    st.info("testing...")
+    
+
+
+def page_2():
     st.title("PuzzleSQL : Package to automate your SQL injection 💉")
     st.write("This page is the documentation page of the PuzzleSQL package available in my github")
     st.markdown(
@@ -212,7 +219,7 @@ def page_1():
 
 
 
-def page_2():
+def page_3():
     
     st.markdown(
     """
