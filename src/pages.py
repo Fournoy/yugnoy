@@ -546,7 +546,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     av_evasion_poc = r"video\video_poc_protection.mp4"
     
-    st.video(av_evasion_poc, format="video/mp4", start_time=0, subtitles=None, loop=True, autoplay=False, muted=True)  
+    st.video(av_evasion_poc, loop=True, muted=True)  
 
     st.success("Nice !")  
     
