@@ -4,15 +4,21 @@ from streamlit_option_menu import option_menu
 import streamlit as st
 
 
+if "selected_page" not in st.session_state:
+    st.session_state.selected_page = "Main"
+    
+
 st.set_page_config(
     page_title="My project",
     page_icon="💻"   
 )
 
 with st.sidebar:
-    selected = option_menu("Yugo", ["Main","Malware Cre[HACK]tion I","PuzzleSQL"],menu_icon="bi-bookmark-check-fill", default_index=0)
+    selected = option_menu("Yugo", ["Main","Malware Cre[HACK]tion I","PuzzleSQL"],menu_icon="bi-bookmark-check-fill", default_index=["Main","Malware Cre[HACK]tion I","PuzzleSQL"].index(st.session_state.selected_page))
     selected
-    
+
+    st.session_state.selected_page = selected
+
 st.markdown(
     """
     <style>

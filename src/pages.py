@@ -73,6 +73,26 @@ def page_1():
         """)
         st.markdown('</div>', unsafe_allow_html=True)
 
+    st.markdown("<br> <br>", unsafe_allow_html=True)
+
+    st.markdown("""
+        <style>
+        .custom-text {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #7A0032 ;
+            margin-bottom: 1.5rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<p class="custom-text">My new project : A malware (keylogger) that can bypass Windows Defender using Nuitka and Clang !</p>', unsafe_allow_html=True)
+    if st.button("Go to Malware Creation 🧪"):
+        st.session_state.selected_page = "Malware Cre[HACK]tion I"
+        st.rerun()
+
 
     st.markdown("""---""")
     st.markdown(
