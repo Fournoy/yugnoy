@@ -434,7 +434,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     
     st.write("""
-    TThe code was pretty hard to use; thankfully, I was helped by Google to make it correctly. 
+    The code was pretty hard to use; thankfully, I was helped by Google and AI to make it correctly. 
     There are also tools like SysWhisper2 that provide pre-built Syscalls. You will find documentation about Syscall in the complementary sources section. 
     Syscalls are complicated to use; it was the hardest part of the malware. It took me several attempts to obtain fully functional code. 
     As you can see, it will compare with the blacklist manually incorporated in the main code.
