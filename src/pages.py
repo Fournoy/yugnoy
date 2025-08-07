@@ -111,7 +111,7 @@ def page_2():
     st.markdown(
     """
     <div style='background-color:#0e1117;padding:20px;border-radius:10px'>
-        <h1 style='color:#00FFAA;text-align:center'>How a keylogger can bypass Windows Defender ?</h1>
+        <h1 style='color:#00FFAA;text-align:center'>How a python keylogger can bypass Windows Defender ?</h1>
         <p style='color:#CCCCCC;text-align:center'>⚠️ Educational context only - Lab simulation</p>
     </div>
     """,
