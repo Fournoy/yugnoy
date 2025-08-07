@@ -653,13 +653,13 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     why our third hypothesis is...
     
       
-    :green[Three : Nuitka, C and libpython:]
+    :green[Three : NUITKA, C and LIBPYTHON:]
     
     The traduce-by-Nuitka dropper will use libpython for interpreting the code. It will execute it direclty into the memory, 
     that can bypass AV detection. Windows Defender (in our scope) is file-dependent and need visibility to avoid threat. That why
     the dynamic code can easily bypass the AV. 
     
-    :green[Four: Technique import:]
+    :green[Four: TECHNIQUE IMPORT:]
     
     To import module, i used importlib. He will import library dynamically, so during the code execution. You will see how it works below 
     with the dropper code. 
