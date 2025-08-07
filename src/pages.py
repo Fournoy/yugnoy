@@ -121,6 +121,16 @@ def page_2():
     st.markdown("<br> <br>", unsafe_allow_html=True)
     
     st.write("""
+    :green[Before we begin, let's first talk about the scope. The Windows Defender used is the standard home version with 
+    all parameters activated. We will not discuss EDR or other antivirus solutions. Initially, this project aimed to 
+    understand how an antivirus like Windows Defender (at home) can be bypassed in order to run malware on the system. 
+    Future projects like this will be improved to bypass antivirus solutions as much as possible, using more advanced 
+    techniques.]         
+             
+    """)
+    
+    
+    st.write("""
 - ***Language*** : While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and accessibility.
 More advanced components (e.g. rootkits) would likely require C/C++ to interact with syscalls. But for our **educational keylogger**, we stick to Python.
 
@@ -664,6 +674,9 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     To import module, i used importlib. He will import library dynamically, so during the code execution. You will see how it works below 
     with the dropper code. 
     
+    :blue[Of course, the technic used previously in order to bypass dynamic analysis helped a lot. The mixe of all theses technics 
+    make the python malware, capable to bypass a Windows Defender at home.]
+    
              """)
     
     code_dropper ="""
@@ -781,7 +794,14 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
              """)
 
 
+
                     ################### Page 3 ########################
+                    
+                    
+                    
+                    
+                    
+                    
 def page_3():
     st.title("PuzzleSQL : Package to automate your SQL injection 💉")
     st.write("This page is the documentation page of the PuzzleSQL package available in my github")
