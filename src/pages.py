@@ -132,7 +132,7 @@ def page_2():
     
     st.write("""
 - ***Language*** : While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and accessibility.
-More advanced components (e.g. rootkits) would likely require C/C++ to interact with syscalls. But for our **educational keylogger**, we stick to Python.
+More advanced components (e.g. rootkits) would likely require C/C++ to interact with syscalls. But for our **keylogger**, we stick to Python.
 
 - ***Target OS*** : The testbed environment is a **Windows-based environment**. We restrict our testing and simulations to this OS only.
 
