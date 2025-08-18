@@ -578,10 +578,10 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     And miraculously, Windows Defender wasn't able to detect it, even after few days. So we can confirm that statically, the keylogger bypasses Windows Defender.
     And now, with the waiting time, it can bypass dynamic analysis performed by Windows Defender.
     
-    It's legitimate to know which configuration i used with Windows Defender, in fact everything was on, even the protection against ransomware
+    *Before to show you the execution of the Keylogger, it's legitimate to know which configuration i used with Windows Defender, in fact everything was on, even the protection against ransomware
     but with the default parameters (of course). So running from the desktop will trigger nothing (not the same story into the documents directory, 
     AV will detect that an executable is playing with files and directory, but will not flag it as malware).
-    The only disable parameter is the smart app control (i wasn't able to activate it). 
+    The only disable parameter is the smart app control (i wasn't able to activate it).* 
     
     **Now, i'm happy to show you the keylogger !** Tested on my colleague's computer
              """)
