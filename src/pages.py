@@ -565,10 +565,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.write("""
     In first, even before using clang, the malware was a one-file type. But i quickly saw  that it would always be triggered because of the
     obvious behavior of the malware. So i needed to change the functioning. For that i split the malware into five files: two for the main 
-    functions (keylogging and telegram sending) and two other for the protection function against analysis and for the main file (the orchestrator), the dropepr.
+    functions (keylogging and telegram sending) and two other for the protection function against analysis and for the main file (the orchestrator), the dropper.
     The dropper is the fifth file, the only executable file, the other are just XOR encrypt files. The dropper will 
     deXOR files and run them "inside itself", in other words, run them during execution with an exec() (Python) function. 
-    With that, we can bypass static analysis AND dynamic analysis (in a certain way). 
              """)
     
     st.write("""
