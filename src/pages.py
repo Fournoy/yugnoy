@@ -59,9 +59,9 @@ def page_1():
 
     with col2:
         st.markdown('<div class="info-block">', unsafe_allow_html=True)
-        st.markdown("### 👾 Malware Development")
+        st.markdown("### 👾 Malware Dev")
         st.markdown("""
-            - Keyloggers against Windows Defender (Python & C)
+            - Bypass Windows Defender with Keylogger in python & C
         """)
         st.markdown('</div>', unsafe_allow_html=True)
         
