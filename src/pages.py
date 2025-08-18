@@ -456,7 +456,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     st.markdown("<h3 style='text-align: center;'>Bypassing the Static Analysis</h3>", unsafe_allow_html=True)
     
     st.write("""
-    Here is the part changed everything when i created the keylogger. In first , i used Pyinstaller to make an exe of my python code.
+    Here is the part changed everything when i created the keylogger. In first , i used Pyinstaller to make an "wrapper" of my python code.
     And windows triggered it, sometimes not, but for a short period of time (few hours) before it got stopped when executed. So i chose another tool, 
     **Nuitka**. Using it with default parameters was not the best option at first place. With basic compilation using CL compiler and with only obfuscation in the python code,
     the executable triggered the AV each time i compile it, so i can't even see the file being created in the directory !
@@ -468,8 +468,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     st.write("""
     As you can see, using cl compiler, even if we use code obfuscation in the python code, will not work. But why ?
-    - First : Using only python code obfuscation is not enought. For the keylogger, we can inject junk code or change the variable etc... to make it 
-    as incomprehensible as possible. Here is an exemple of how it looks :             
+    - First : Using only python code obfuscation is not enought. For the keylogger, we can't just inject junk code or change the variable etc... Here is an exemple of how it looks :             
     """)
     
     
@@ -506,7 +505,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     url6="https://www.hackmosphere.fr/bypass-windows-defender-antivirus-2025-part-2/"
     
     st.write("""
-    But i even not change the variable. In fact, i only use the junk code. The main thing that change everything it using [XOR encryption](%s).
+    The code have junk code but we need more in term of obfuscation. The main thing that change everything it using [XOR encryption](%s).
     To make it right, we will use a dropper. The dropper will be the code that executes the main code of the malware. It will search for files and
     execute them directly into the code (like i explain before). It will be the executable file, the others will remain XORed file. 
     We will se that later ! Let's focus into the compilation problem.
