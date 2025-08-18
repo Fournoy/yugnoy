@@ -543,6 +543,12 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     ROOT_DIR = Path(__file__).resolve().parents[1]  
     pe_bear = ROOT_DIR / "image" / "pe_bear.jpg"
     st.image(str(pe_bear), caption="The Rich header hash is not available.")
+    
+    st.write("""
+    This lack of PE Header help us to bypass the Windows AV. Because of the non-use of Microsoft product during the development (even if we using Clang-cl)
+    the PE Header cannot be available.      
+             """)
+    
 
     st.markdown("<h3 style='text-align: center;'>Dynamic problem</h3>", unsafe_allow_html=True)
     
