@@ -583,7 +583,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     AV will detect that an executable is playing with files and directory, but will not flag it as malware).
     The only disable parameter is the smart app control (i wasn't able to activate it)* 
     
-    **Now, i'm happy to show you the keylogger !** Tested on my colleague's computer
+    **Now, i'm happy to show you the keylogger !** Tested on my colleague's computer**
              """)
     
     ROOT_DIR = Path(__file__).resolve().parents[1]  
