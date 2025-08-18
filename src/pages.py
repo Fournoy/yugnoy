@@ -659,8 +659,8 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     
     :green[Two : OBFUSCATION CODE:]
     
-    The second possiblity is the use of LLVM front-end. The C code (traduce by Nuitka from the python source code) will be transform
-    in a Intermediate Representation and it can help to obfuscate the code. Nuitka will "traduce" the python code using libpython and the 
+    The second possiblity is the use of LLVM front-end. The C code (traduce by Nuitka from the python source code using clang-cl) will be transform
+    in a Intermediate Representation thanks to LLVM front-end and it can help to obfuscate the code. Nuitka will "traduce" the python code using libpython and the 
     intermediate code is very hard to read. It can be use as an obfuscation, additionally, the junk code will help because it will be also 
     "traduce" by Nuitka. But the thing is, only the dropper is compilate, and that's
     why our third hypothesis is...
@@ -798,11 +798,9 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
 
 
 
+
                     ################### Page 3 ########################
-                    
-                    
-                    
-                    
+                                 
                     
                     
 def page_3():
