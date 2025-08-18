@@ -59,7 +59,7 @@ def page_1():
 
     with col2:
         st.markdown('<div class="info-block">', unsafe_allow_html=True)
-        st.markdown("### 💣 Malware Lab")
+        st.markdown("### 👾 Malware Development")
         st.markdown("""
             - Keyloggers against Windows Defender (Python & C)
         """)
@@ -67,7 +67,7 @@ def page_1():
         
     with col3:
         st.markdown('<div class="info-block">', unsafe_allow_html=True)
-        st.markdown("### 🧠 Tool Project")
+        st.markdown("### 🛠️ Tool Project")
         st.markdown("""
             - PuzzleSQL : Python package for custom automated SQL injection (In pause...)
         """)
