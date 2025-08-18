@@ -567,7 +567,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     obvious behavior of the malware. So i needed to change the functioning. For that i split the malware into five files: two for the main 
     functions (keylogging and telegram sending) and two other for the protection function against analysis and for the main file (the orchestrator), the dropper.
     The dropper is the fifth file, the only executable file, the other are just XOR encrypt files. The dropper will 
-    deXOR files and run them "inside itself", in other words, run them during execution with an exec() (Python) function. 
+    deXOR files and run them "inside itself", in other words, run them during execution with an exec() (Python) function, so it will run code directly into flash memory.
              """)
     
     st.write("""
