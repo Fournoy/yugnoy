@@ -572,8 +572,8 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     st.write("""
     At first, the malware worked in my lab. I was happy and very excited to right this report. But, when i tested it on another computer, 
-    Windows Defender triggered it directly because of DYNAMIC analysis (again...). I was lost, how can i make this virus (using **Windows API**) as
-    descrete as possible ?? I started to look some techniques, maybe using Syscall for all the functions using Windows API, but i was far from that.
+    Windows Defender triggered it directly because of DYNAMIC analysis (again...). How can i make this virus (using **Windows API**) as
+    descrete as possible ? I started to look some techniques, maybe using Syscall for all the functions using Windows API, but i was far from that.
     So i started to play with the behavior of the malware. I added a simple *time.sleep(20)* in the dropper to see if it would work.
     And miraculously, Windows Defender wasn't able to detect it, even after few days. So we can confirm that statically, the keylogger bypasses Windows Defender.
     And now, with the waiting time, it can bypass dynamic analysis performed by Windows Defender.
