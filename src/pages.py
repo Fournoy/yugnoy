@@ -139,9 +139,9 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
 - ***Functionalities*** :
     - **Keylogging** using Python modules (e.g., `pynput`)
     - **Screenshot capture**
-    - **Data exfiltration simulation** (e.g., sending to local Telegram test bot)
+    - **Data exfiltration simulation** (e.g., sending to a Telegram bot)
 
-- ***Attacker-side simulation*** : Logs and screenshots are sent to a **local server or Telegram bot in a test environment**. We explore the idea of using AI for future parsing but do not implement it at this stage.
+- ***Attacker-side simulation*** : Logs and screenshots are sent to a **local server or Telegram bot**. We explore the idea of using AI for future parsing but do not implement it at this stage.
 
 - ***Detection & Stealth*** : The key focus of this experience is **evasion**. Building the logger is not the challenge; staying undetected is. Thus, we also investigate:
     - How AV solutions detect Python malware
