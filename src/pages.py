@@ -328,7 +328,7 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
              """)
         
     st.write("""
-             Let's dive into the best part of making malware (and the most difficult): the **EVASION** techniques. 
+             Let's dive into the best part of making malware (and the most difficult): the **evasion** techniques. 
              """)
     
     st.info("How will we evade Windows Defender for this keylogger ?")
