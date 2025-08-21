@@ -405,50 +405,200 @@ More advanced components (e.g. rootkits) would likely require C/C++ to interact 
     
     
     syscall_evasion_code =r"""
-    int main() {
-        HMODULE hNtdll = LoadLibraryA("ntdll.dll");
+#include <windows.h>
+#include <stdio.h>
 
-        typedef NTSTATUS (WINAPI *NtQuerySystemInformation_t)(
-            ULONG SystemInformationClass,
-            PVOID SystemInformation,
-            ULONG SystemInformationLength,
-            PULONG ReturnLength
-        );
+typedef LONG NTSTATUS;
+#define SystemProcessInformation 5
+#define SystemBasicInformation 0
 
-        NtQuerySystemInformation_t NtQuerySystemInformation =
-            (NtQuerySystemInformation_t)GetProcAddress(hNtdll, "NtQuerySystemInformation");
+typedef struct _SYSTEM_BASIC_INFORMATION {
+   ULONG Reserved;
+   ULONG TimerResolution;
+   ULONG PageSize;
+   ULONG NumberOfPhysicalPages;
+   ULONG LowestPhysicalPageNumber;
+   ULONG HighestPhysicalPageNumber;
+   ULONG AllocationGranularity;
+   ULONG MinimumUserModeAddress;
+   ULONG MaximumUserModeAddress;
+   ULONG ActiveProcessorsAffinityMask;
+   UCHAR NumberOfProcessors;
+   UCHAR _pad1[3];
+} SYSTEM_BASIC_INFORMATION;
 
-        ULONG bufferLength = 1024 * 1024;
-        PVOID buffer = malloc(bufferLength);
+typedef struct _UNICODE_STRING {
+      USHORT Length;
+      USHORT MaximumLength;
+      PWSTR  Buffer;
+} UNICODE_STRING, *PCUNICODE_STRING;
+
+typedef struct _VM_COUNTERS {
+      SIZE_T 	PeakVirtualSize;
+      SIZE_T 	VirtualSize;
+      ULONG 	PageFaultCount; 
+      SIZE_T 	PeakWorkingSetSize;
+      SIZE_T 	WorkingSetSize;
+      SIZE_T 	QuotaPeakPagedPoolUsage;
+      SIZE_T 	QuotaPagedPoolUsage;
+      SIZE_T 	QuotaPeakNonPagedPoolUsage;
+      SIZE_T 	QuotaNonPagedPoolUsage;
+      SIZE_T 	PagefileUsage;
+      SIZE_T 	PeakPagefileUsage;
+      SIZE_T 	PrivatePageCount;
+} VM_COUNTERS;
+
+typedef LONG KPRIORITY;
+
+typedef struct _CLIENT_ID
+{
+     PVOID UniqueProcess;
+     PVOID UniqueThread;
+} CLIENT_ID, *PCLIENT_ID;
+
+typedef struct _SYSTEM_THREAD_INFORMATION {
+    LARGE_INTEGER   KernelTime;
+    LARGE_INTEGER   UserTime;
+    LARGE_INTEGER   CreateTime;
+    ULONG           WaitTime;
+    PVOID           StartAddress;
+    CLIENT_ID       ClientId;         
+    KPRIORITY       Priority;
+    KPRIORITY       BasePriority;
+    ULONG           ContextSwitches;
+    ULONG           ThreadState;
+    ULONG           WaitReason;
+} SYSTEM_THREAD, *PSYSTEM_THREAD_INFORMATION;
+
+
+typedef struct _SYSTEM_PROCESS_INFORMATION {
+      ULONG                   NextEntryOffset;
+      ULONG                   NumberOfThreads;
+      LARGE_INTEGER           Reserved[3];
+      LARGE_INTEGER           CreateTime;
+      LARGE_INTEGER           UserTime;
+      LARGE_INTEGER           KernelTime;
+      UNICODE_STRING          ImageName;
+      KPRIORITY               BasePriority;
+      HANDLE                  ProcessId;
+      HANDLE                  InheritedFromProcessId;
+      ULONG                   HandleCount;
+      ULONG                   Reserved2[2];
+      ULONG                   PrivatePageCount;
+      VM_COUNTERS             VirtualMemoryCounters;
+      IO_COUNTERS             IoCounters;
+} SYSTEM_PROCESS_INFORMATION, *PSYSTEM_PROCESS_INFORMATION;
+
+
+int main() {
+    // Pour afficher les caractères Unicode
+    SetConsoleOutputCP(CP_UTF8);
+
+    HMODULE hNtdll = LoadLibraryA("ntdll.dll");
+    if (!hNtdll) {
+        printf("Erreur de chargement ntdll.dll\n");
+        return 1;
+    }
+
+    typedef NTSTATUS (WINAPI *NtQuerySystemInformation_t)(
+        ULONG SystemInformationClass,
+        PVOID SystemInformation,
+        ULONG SystemInformationLength,
+        PULONG ReturnLength
+    );
+
+    NtQuerySystemInformation_t NtQuerySystemInformation =
+        (NtQuerySystemInformation_t)GetProcAddress(hNtdll, "NtQuerySystemInformation");
+
+
+    if (!NtQuerySystemInformation) {
+        printf("Erreur de résolution de NtQuerySystemInformation\n");
+        return 1;
+    }
+
+    ULONG bufferLength = 1024 * 1024;
+    PVOID buffer = malloc(bufferLength);
+    if (!buffer) {
+        printf("Erreur allocation mémoire\n");
+        return 1;
+    }
+    ULONG returnLength = 0;
+
+    NTSTATUS status = NtQuerySystemInformation(SystemProcessInformation, buffer, bufferLength, &returnLength);
+    if (status != 0) {
+        printf("NtQuerySystemInformation a échoué : 0x%08X\n", status);
+        free(buffer);
+        return 1;
+    }
+
+    PSYSTEM_PROCESS_INFORMATION current = (PSYSTEM_PROCESS_INFORMATION)buffer;
+
+    const wchar_t* list_tools_analysis[] = {
+        L"ida.exe",            
+        L"ida64.exe",           
+        L"ghidraRun.exe",       
+        L"radare2.exe",        
+        L"binaryninja.exe",     
+        L"cutter.exe",        
+        L"pe-bear.exe",        
+        L"x64dbg.exe",        
+        L"x32dbg.exe",         
+        L"windbg.exe",         
+        L"ollydbg.exe",        
+        L"ImmunityDebugger.exe",
+        L"cuckoo.exe",         
+        L"agent.py",            
+        L"anyrun-agent.exe",    
+        L"joeboxcontrol.exe",  
+        L"joeboxserver.exe",
+        L"hybrid-analysis.exe", 
+        L"malwr.exe",          
+        L"procmon.exe",         
+        L"procexp.exe",         
+        L"tcpview.exe",         
+        L"autoruns.exe",         
+        L"regshot.exe",          
+        L"wireshark.exe",     
+        L"fakenet.exe",         
+        L"fakenet-ng.exe",       
+        L"upx.exe",            
+        L"die.exe",             
+        L"exeinfope.exe",        
+        L"volatility.exe",       
+        L"rekall.exe",         
+        L"cape.exe",           
+        L"yara64.exe",          
+        L"yara32.exe",        
+        L"vt.exe",              
+        L"virustotaluploader.exe",  
+        L"intezer_analyze.exe",      
+        L"flarevm_launcher.bat",    
+        L"remnux.exe",               
+        NULL
+    };
     
-        ULONG returnLength = 0;
+    while (TRUE) { 
+            for (int i =0;  list_tools_analysis[i] != NULL; i++){    
+                if (current->ImageName.Buffer != NULL) {
+                    wchar_t* filename = wcsrchr(current->ImageName.Buffer, L'\\'); //on récupère uniquement le nom du logiciel (pas son path)
+                    if (filename) filename++; else filename = current->ImageName.Buffer;
+                    if (wcsicmp(filename, list_tools_analysis[i]) == 0) { //comparaison insensible à la case
+                        free(buffer);
+                        return FALSE;
+                    }
+                } 
 
-        NTSTATUS status = NtQuerySystemInformation(SystemProcessInformation, buffer, bufferLength, &returnLength);
-        PSYSTEM_PROCESS_INFORMATION current = (PSYSTEM_PROCESS_INFORMATION)buffer;
-        
-        const wchar_t* list_tools_analysis[] = {
-            L"ida.exe",
-            L"procexp.exe",
-            L"windbg.exe",
-            ...
-            NULL
-        };
-        while (TRUE) { 
-                for (int i =0;  list_tools_analysis[i] != NULL; i++){    
-                    if (current->ImageName.Buffer != NULL) {
-                        wchar_t* filename = wcsrchr(current->ImageName.Buffer, L'\\');
-                        if (filename) filename++; else filename = current->ImageName.Buffer;
-                        if (wcsicmp(filename, list_tools_analysis[i]) == 0) {
-                            free(buffer);
-                            return FALSE; //Will return FALSE and stop the execution
-                        }
-                    } 
-                current = (PSYSTEM_PROCESS_INFORMATION)((PUCHAR)current + current->NextEntryOffset);
+            if (current->NextEntryOffset == 0) {
+                free(buffer);
+                return TRUE;
+            }
+            }
+            current = (PSYSTEM_PROCESS_INFORMATION)((PUCHAR)current + current->NextEntryOffset);
+    }
 
-        }
- 
-        return 0;
-    }    
+    return 0;
+}
+
     """
     
     
