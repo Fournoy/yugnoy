@@ -120,6 +120,29 @@ def page_2():
 
     st.markdown("<br> <br>", unsafe_allow_html=True)
     
+    st.markdown("## Summary", unsafe_allow_html=True)
+    st.markdown("""
+    - [Scope](#how-a-python-keylogger-can-bypass-windows-defender-)
+    - [TL;DR](#tl-dr)
+    - [Functionalities](#functionalites)
+        - [Keylogging](#keylogging)
+        - [System Info & Screenshot](#code)
+    - [Exfiltration](#exfiltration)
+        - [Discord case](#discord-case)
+        - [Telegram case](#telegram-case)
+    - [Evasion Techniques](#evasion-techniques)
+        - [Syscall Function](#syscall-function)
+        - [Bypassing the Static Analysis](#bypassing-the-static-analysis)
+        - [Nuitka, Clang and LLVM](#nuitka-clang-and-llvm)
+        - [Dynamic problem](#dynamic-problem)
+    - [Malware test](#malware-test)
+    - [Why it works?](#why-its-work-)
+    - [Dropper code](#code)
+    - [Complementary Sources](#complementary-sources)
+        """, unsafe_allow_html=True)
+
+    
+    st.markdown("<br> <br>", unsafe_allow_html=True)
     st.write("""
     :green[Before we begin, let's first talk about the scope. The Windows Defender used is the standard home version with 
     all parameters activated. We will not discuss EDR or other antivirus solutions. Initially, this project aimed to 
@@ -151,6 +174,8 @@ The testbed environment is a **Windows-based environment**. We restrict our test
 """)    
     
     st.markdown("<h3 style='text-align: center;'>Let's begin this very interesting journey ! </></h3>", unsafe_allow_html=True)
+   
+
    
     
     st.markdown("<h2 style='text-align: center;'>Functionalites:</></h2>", unsafe_allow_html=True)
