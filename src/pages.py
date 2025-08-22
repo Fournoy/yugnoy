@@ -132,7 +132,7 @@ def page_2():
     st.markdown("<h1 style='text-align: center;'>TL;DR</h1>", unsafe_allow_html=True)
     st.write("""
 While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and accessibility.
-More advanced components (e.g. rootkits) would likely require C/C++ to interact with syscalls. But for our **keylogger**, we stick to Python.
+More advanced components (e.g. rootkits) would likely require C/C++, but for our **keylogger**, we stick to Python.
 The testbed environment is a **Windows-based environment**. We restrict our testing and simulations to this OS only using Windows Defender.
 - ***Functionalities of the malware*** :
     - **Keylogging** using Python modules (e.g., `pynput`)
@@ -143,16 +143,15 @@ The testbed environment is a **Windows-based environment**. We restrict our test
     - How AV solutions detect Python malware
     - Techniques to reduce the detection surface (e.g., obfuscation, syscall-based execution, etc...)
 """)
+    st.write("""
+        In resume, the keylogger will use Python for the main functionality.
+        Taking screenshots, registering keylogs and sending the photos and logs to a server.
+        Also, the keylogger will have a dll file written in C. The main purpose here is to provide the keylogger with AV (antivirus) detection functionalities. 
+        We will see that later.             
+""")    
     
     st.markdown("<h3 style='text-align: center;'>Let's begin this very interesting journey ! </></h3>", unsafe_allow_html=True)
-    
-    st.write("""
-             For the first step, we choose the language. Here the keylogger will use Python for the main functionality.
-            Taking screenshots, registering keylogs and sending the photos and logs to a server.
-            It will also use functionality like XOR-decryption and will place the file in the TEMP directory. 
-            Also, the keylogger will have a dll file written in C. The main purpose here is to provide the virus with AV detection functionalities. 
-            We will see that later.             
-    """)    
+   
     
     st.markdown("<h2 style='text-align: center;'>Functionalites:</></h2>", unsafe_allow_html=True)
 
