@@ -803,6 +803,10 @@ int main() {
     deXOR files and run them "inside itself", in other words, run them during execution with an exec() (Python) function, so it will run code directly into flash memory.
              """)
     
+    ROOT_DIR = Path(__file__).resolve().parents[1]  
+    screen_certi = ROOT_DIR / "image" / "Diagram_malware.jpg"
+    st.image(str(screen_certi), caption="How the malware process during launch")
+    
     st.write("""
     At first, the malware worked in my lab. I was happy and very excited to right this report. But, when i tested it on another computer, 
     Windows Defender triggered it directly because of DYNAMIC analysis (again...). I started to look some techniques, maybe using Syscall for all the functions using Windows API, but i was far from that.
