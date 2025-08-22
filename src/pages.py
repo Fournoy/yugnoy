@@ -140,11 +140,12 @@ def page_2():
     - [Dropper code](#code)
     - [Complementary Sources](#complementary-sources)
         """, unsafe_allow_html=True)
-
+    
+    url_github_page ="https://github.com/Fournoy/yugnoy/tree/main/additional_code/Malware_dev_I"
+    
     st.info("""
-            
-            
-            """)
+    Go the [GitHub page](%s) to see additionnal ressources like dropper code, main.py code and syscall_function.c code.            
+            """ % url_github_page)
     
     st.markdown("<br> <br>", unsafe_allow_html=True)
     st.write("""
