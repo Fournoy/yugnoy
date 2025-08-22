@@ -129,20 +129,16 @@ def page_2():
              
     """)
     
-    
+    st.markdown("<h1 style='text-align: center;'>TL;DR</h1>", unsafe_allow_html=True)
     st.write("""
-- ***Language*** : While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and accessibility.
+While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and accessibility.
 More advanced components (e.g. rootkits) would likely require C/C++ to interact with syscalls. But for our **keylogger**, we stick to Python.
-
-- ***Target OS*** : The testbed environment is a **Windows-based environment**. We restrict our testing and simulations to this OS only.
-
-- ***Functionalities*** :
+The testbed environment is a **Windows-based environment**. We restrict our testing and simulations to this OS only using Windows Defender.
+- ***Functionalities of the malware*** :
     - **Keylogging** using Python modules (e.g., `pynput`)
     - **Screenshot capture**
     - **Data exfiltration simulation** (e.g., sending to a Telegram bot)
-
-- ***Attacker-side simulation*** : Logs and screenshots are sent to a **local server or Telegram bot**. We explore the idea of using AI for future parsing but do not implement it at this stage.
-
+- ***Attacker-side*** : Logs and screenshots are sent to a **Telegram serveur**.
 - ***Detection & Stealth*** : The key focus of this experience is **evasion**. Building the logger is not the challenge; staying undetected is. Thus, we also investigate:
     - How AV solutions detect Python malware
     - Techniques to reduce the detection surface (e.g., obfuscation, syscall-based execution, etc...)
