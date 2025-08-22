@@ -152,7 +152,7 @@ def page_2():
              
     """)
     
-    st.markdown("<h1 style='text-align: left;'>TL;DR</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>TL;DR</h1>", unsafe_allow_html=True)
     st.write("""
 While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and accessibility.
 More advanced components (e.g. rootkits) would likely require C/C++, but for our **keylogger**, we stick to Python.
@@ -322,7 +322,7 @@ class Info_screen:
     Let's focus on Python code and the pynput module. We are practically shooting ourselves in the foot, but it's a good challenge.
     """)
     
-    st.markdown("<h3 style='text-align: center;'>What next ?</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: left;'>What next ?</h3>", unsafe_allow_html=True)
 
     st.info("""We have the main function used by the malware, now, we will talk about exfiltration.       
         """)
@@ -335,7 +335,7 @@ class Info_screen:
     the most easiest malware possible to evade Windows AV. For that, we need a server to exfiltrate data, such as web server.
     """ % url)
     
-    st.markdown("<h3 style='text-align: center;'>Discord case</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: left;'>Discord case</h3>", unsafe_allow_html=True)
     
     url ="https://www.cyfirma.com/research/technical-malware-analysis-report-python-based-rat-malware/"
     
@@ -345,7 +345,7 @@ class Info_screen:
     It's fair enough, but I need a server to exfiltrate the stolen data. For that, and like a lot of malware during a certain time, we will use ***Telegram***.
             """ % url)
 
-    st.markdown("<h3 style='text-align: center;'>Telegram case</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: left;'>Telegram case</h3>", unsafe_allow_html=True)
     
     st.write("""
         In fact, this is a good idea. It's pretty clean, pretty simple to use, and we can access the server from anywhere.
