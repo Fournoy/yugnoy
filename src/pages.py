@@ -805,6 +805,7 @@ int main() {
     
     ROOT_DIR = Path(__file__).resolve().parents[1]  
     screen_diagramm = ROOT_DIR / "image" / "Diagram_malware.jpg"
+    
     st.image(str(screen_diagramm), caption="How the malware process during launch")
     
     st.write("""
