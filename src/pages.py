@@ -361,8 +361,8 @@ class Info_screen:
             To exfiltrate data, we need to send packets to a server. We will use a Telegram bot with the Telegram API to send data. 
             But what format? Stolen data will be files (keyboard logs) and zip files (screenshots). Telegram allows us to send them to a private room. 
             But it's important to understand that in a real scenario, Telegram is not the best choice. Having our own remote server is better. 
-            of course, we can use any type of server, even Google Drive or X (Twitter), but in fact, having control over data flow, data processing 
-            and so on, is more important. You can look at some well-known malware to see that they generally use their own server. 
+            Of course, we can use any type of server, even Google Drive or Gmail, but in fact, having control over data flow, data processing 
+            and having control of the server, is more important. You can look at some well-known malware to see that they generally use their own server. 
              """)
     code_tg_exfiltration ="""
     class InfoToEmail:
@@ -438,7 +438,7 @@ class Info_screen:
         """ % url3)
     
 
-    st.markdown("<h3 style='text-align: center;'>Syscall Function</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: left;'>Syscall Function</h3>", unsafe_allow_html=True)
     
     url4="https://www.hackmosphere.fr/bypass-windows-defender-antivirus-2025-part-2/"
     
@@ -456,11 +456,12 @@ class Info_screen:
     st.write("""
     [Here](%s) you have examples of avoiding malware analysis, outside and inside a sandbox. 
     The best technique shown in the paper is to detect physical components inside the system you are running on. 
-    For example, a sandbox used by AV will have two CPUs. So, if the code finds less than two running CPUs, it will stop its execution. 
+    For example, a sandbox used by AV will have two CPUs. So, if the code finds less than two running CPUs, it will stop its execution.
+    We can do that even with pc fan ! 
     For our project, we will choose something different. The malware will first examine all the running processes and 
     compare the program names with a blacklist. In case of a match, the execution will stop immediately. 
     But to do this, we will use the C language. We could use Windows API and play with these functions, 
-    but the risk is that AV will detect it. We are already using WIN API for the keylogging, so we need to do something different now. 
+    but the risk is to be detect. We are already using WIN API for the keylogging, so we need to do something different now. 
     In addition, this is one of the first executions, so we need to be discreet. Let's use Syscall!             
     """% url5) 
     
@@ -668,7 +669,7 @@ int main() {
     
     st.write("""
     The code was pretty hard to use; thankfully, I was helped by Google and AI to make it correctly. 
-    There are also tools like SysWhisper2 that provide pre-built Syscalls. You will find documentation about Syscall in the complementary sources section. 
+    There are also tools like SysWhisper(2&3) that provide pre-built Syscalls. You will find documentation about Syscall in the complementary sources section. 
     As you can see, it will compare with the blacklist manually incorporated in the main code.
     
     The main difference between API call and Syscall call, is that the programm use directly the ntdll.dll file. We 'bypass" the API monitor
@@ -685,7 +686,7 @@ int main() {
     st.success("It work perfectly !")  
     
     
-    st.markdown("<h3 style='text-align: center;'>Bypassing the Static Analysis</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: left;'>Bypassing the Static Analysis</h3>", unsafe_allow_html=True)
     
     st.write("""
     Here is the part changed everything when i created the keylogger. In first , i used Pyinstaller to make an "wrapper" of my python code.
@@ -804,8 +805,7 @@ int main() {
     
     st.write("""
     At first, the malware worked in my lab. I was happy and very excited to right this report. But, when i tested it on another computer, 
-    Windows Defender triggered it directly because of DYNAMIC analysis (again...). How can i make this virus (using **Windows API**) as
-    descrete as possible ? I started to look some techniques, maybe using Syscall for all the functions using Windows API, but i was far from that.
+    Windows Defender triggered it directly because of DYNAMIC analysis (again...). I started to look some techniques, maybe using Syscall for all the functions using Windows API, but i was far from that.
     So i started to play with the behavior of the malware. I added a simple *time.sleep(20)* in the dropper to see if it would work.
     And miraculously, Windows Defender wasn't able to detect it, even after few days. So we can confirm that statically, the keylogger bypasses Windows Defender.
     And now, with the waiting time, it can bypass dynamic analysis performed by Windows Defender.
@@ -813,7 +813,7 @@ int main() {
     *Before to show you the execution of the Keylogger, it's legitimate to know which configuration i used with Windows Defender, in fact everything was on, even the protection against ransomware
     but with the default parameters (of course). So running from the desktop will trigger nothing (not the same story into the documents directory, 
     AV will detect that an executable is playing with files and directory, but will not flag it as malware).
-    The only disable parameter is the smart app control (i wasn't able to activate it)* 
+    The only disable parameter is the smart app control (i wasn't able to activate it). In resume, Windows Defender at home with all parameter activate.* 
     
     **Now, i'm happy to show you the keylogger !** Tested on my colleague's computer**
              """)
@@ -982,6 +982,16 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     """
     st.code(code_dropper, language="python")    
 
+    st.wrtite("""
+        :green[Five: Flash-Memory Execution:]
+    
+    The malware run other file directly in the dropper. In other world, it will not use processor during the captation of information (but it 
+    will use it during the sending AND at the beginning of the programm). 
+    An antivirus play around the processor execution so using flash-memory and fileless (not in this case) programm it become more simple
+    to bypass protection. Malware today don't even use C/Python or other language to drop processus but for exemple native windows language like
+    Powershell. Fileless malware are more performant and using native language keep them close to WinAPI without suspicion. But this work against Antivirus,
+    EDR (Endpoint Detection & Response) will make it harder. 
+              """)
 
     
     
