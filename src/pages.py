@@ -639,7 +639,6 @@ int main() {
     
     ROOT_DIR = Path(__file__).resolve().parents[1]  
     video_av_evasion = ROOT_DIR / "video" / "video_poc_protection.mp4"
-    
     st.video(str(video_av_evasion), loop=True, muted=True)  
 
     st.success("It work perfectly !")  
