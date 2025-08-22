@@ -825,7 +825,6 @@ int main() {
     
     ROOT_DIR = Path(__file__).resolve().parents[1]  
     video_keylogger_in_action= ROOT_DIR / "video" / "New_proof_20s_malware.mp4"
-    
     st.video(str(video_keylogger_in_action), loop=True, muted=True) 
     
     st.markdown("<h2 style='text-align: center;'>Screenshot data</h2>", unsafe_allow_html=True)
