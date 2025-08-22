@@ -987,7 +987,7 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     """
     st.code(code_dropper, language="python")    
 
-    st.wrtite("""
+    st.write("""
         :green[Five: Flash-Memory Execution:]
     
     The malware run other file directly in the dropper. In other world, it will not use processor during the captation of information (but it 
