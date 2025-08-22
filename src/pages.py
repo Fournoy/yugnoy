@@ -804,8 +804,8 @@ int main() {
              """)
     
     ROOT_DIR = Path(__file__).resolve().parents[1]  
-    screen_certi = ROOT_DIR / "image" / "Diagram_malware.jpg"
-    st.image(str(screen_certi), caption="How the malware process during launch")
+    screen_diagramm = ROOT_DIR / "image" / "Diagram_malware.jpg"
+    st.image(str(screen_diagramm), caption="How the malware process during launch")
     
     st.write("""
     At first, the malware worked in my lab. I was happy and very excited to right this report. But, when i tested it on another computer, 
