@@ -14,7 +14,7 @@ st.set_page_config(
 )
 
 with st.sidebar:
-    selected = option_menu("Yugo", ["Main","Malware Cre[HACK]tion I","PuzzleSQL","Compilator in C++"],menu_icon="bi-bookmark-check-fill", default_index=["Main","Malware Cre[HACK]tion I","PuzzleSQL"].index(st.session_state.selected_page))
+    selected = option_menu("Yugo", ["Main","Malware Cre[HACK]tion I","PuzzleSQL","Compilator C++"],menu_icon="bi-bookmark-check-fill", default_index=["Main","Malware Cre[HACK]tion I","PuzzleSQL"].index(st.session_state.selected_page))
     selected
 
     st.session_state.selected_page = selected
