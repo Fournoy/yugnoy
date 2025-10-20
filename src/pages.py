@@ -1121,7 +1121,7 @@ tokens = tok.encode("Lorem ipsum dolor sit amet")
 print(tokens)"""
     st.code(example_code, language="python")
 
-    st.header("Evaluation / Metrics")
+    st.header("Evaluation")
     st.write("Lorem ipsum (tokenizer quality, speed, memory, vocabulary size, OOV handling).")
 
     st.header("Demo / Visualizations")
