@@ -1114,22 +1114,18 @@ def page_4():
     st.write("Lorem ipsum (functions, classes, expected inputs/outputs).")
 
     st.subheader("Usage examples")
-    example_code = """# Placeholder example
-from tokenizer import Tokenizer
-tok = Tokenizer()
-tokens = tok.encode("Lorem ipsum dolor sit amet")
-print(tokens)"""
-    st.code(example_code, language="python")
+
 
     st.header("Evaluation")
     st.write("Lorem ipsum (tokenizer quality, speed, memory, vocabulary size, OOV handling).")
 
     st.header("Demo / Visualizations")
     st.write("Lorem ipsum (place for charts, interactive widgets, example sentences).")
+    
     # placeholder for image or video
-    ROOT_DIR = Path(__file__).resolve().parents[1]
-    img_placeholder = ROOT_DIR / "image" / "tokenizer_diagram.jpg"
-    st.image(str(img_placeholder), caption="Diagram placeholder (replace with real asset)", use_column_width=True)
+    #ROOT_DIR = Path(__file__).resolve().parents[1]
+    #img_placeholder = ROOT_DIR / "image" / "tokenizer_diagram.jpg"
+    #st.image(str(img_placeholder), caption="Diagram placeholder (replace with real asset)", use_column_width=True)
 
     st.header("References")
     st.write("Lorem ipsum (bibliography, links, papers, repos).")
