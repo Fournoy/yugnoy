@@ -1060,8 +1060,83 @@ def page_3():
     
     st.image(str(gif_sleep))
 
-    
-    
+
+#A COMPLETER POUR TOKENIZER PUIS PARSER
+def page_4():
+
+    st.markdown(
+        """
+        <div style='background-color:#0e1117;padding:20px;border-radius:10px'>
+            <h1 style='color:#00FFAA;text-align:center'>Tokenizer — Overview & Design</h1>
+            <p style='color:#CCCCCC;text-align:center'>Project plan & documentation (structure only)</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
+    st.markdown("## Summary", unsafe_allow_html=True)
+    st.markdown("""
+    - [Introduction](#introduction)
+    - [Design Goals](#design-goals)
+    - [Tokenization Algorithms](#tokenization-algorithms)
+        - [Rule-based](#rule-based)
+    - [Token Types & Schema](#token-types--schema)
+    - [Implementation](#implementation)
+        - [Usage examples](#usage-examples)
+    - [Evaluation](#evaluation)
+    - [Demo / Visualizations](#demo--visualizations)
+    - [References](#references)
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    st.header("Introduction")
+    st.write("Lorem ipsum dolor sit amet, consectetur adipiscing elit. (placeholder)")
+
+
+    st.header("Design Goals")
+    st.write("""
+    - Lorem ipsum dolor sit amet.  
+    - Consectetur adipiscing elit.  
+    - Placeholder for goals and constraints.
+    """)
+
+    st.markdown("<h3 id='tokenization-algorithms'>Tokenization Algorithms</h3>", unsafe_allow_html=True)
+    st.subheader("Rule-based")
+    st.write("Lorem ipsum (place for algorithm description, regex rules, edge-cases).")
+
+    st.header("Token Types & Schema")
+    st.write("Lorem ipsum (place to describe token categories, ids, special tokens).")
+
+    st.header("Implementation")
+    st.write("Lorem ipsum (functions, classes, expected inputs/outputs).")
+
+    st.subheader("Usage examples")
+    example_code = """# Placeholder example
+from tokenizer import Tokenizer
+tok = Tokenizer()
+tokens = tok.encode("Lorem ipsum dolor sit amet")
+print(tokens)"""
+    st.code(example_code, language="python")
+
+    st.header("Evaluation / Metrics")
+    st.write("Lorem ipsum (tokenizer quality, speed, memory, vocabulary size, OOV handling).")
+
+    st.header("Demo / Visualizations")
+    st.write("Lorem ipsum (place for charts, interactive widgets, example sentences).")
+    # placeholder for image or video
+    ROOT_DIR = Path(__file__).resolve().parents[1]
+    img_placeholder = ROOT_DIR / "image" / "tokenizer_diagram.jpg"
+    st.image(str(img_placeholder), caption="Diagram placeholder (replace with real asset)", use_column_width=True)
+
+    st.header("References")
+    st.write("Lorem ipsum (bibliography, links, papers, repos).")
+
+    st.markdown("---")
+    st.markdown("<p style='text-align:center; color:#777;'>Page skeleton created — replace Lorem Ipsum with real content.</p>", unsafe_allow_html=True)
+
 
     
     
